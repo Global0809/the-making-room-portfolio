@@ -1,0 +1,495 @@
+THE MAKING ROOM
+AI Creative Portfolio / Diksha Singh
+
+All prompts below are newly written reconstructions. Original prompt histories were not included. Source files establish assets and titles, not the exact production process.
+
+INFOGRAPHICS / Reels vs. YouTube Shorts
+
+A wide, white comparison sheet titled “The 2026 Short-Form Showdown”. The left half compares search discovery and social reach; the right half covers revenue, brand deals, shopping, and a final platform-choice verdict. Red Shorts icons and Instagram gradients distinguish the two platforms. A Gemini Notebook mark appears at the lower right.
+
+RECONSTRUCTED PROMPT
+Design a high-resolution landscape educational infographic titled “Reels vs. YouTube Shorts: The 2026 Short-Form Showdown”. Use a white editorial canvas, bold condensed black sans-serif headings, red YouTube Shorts accents and orange–magenta–purple Instagram accents. Divide the sheet into two main regions: “The Specs & Discovery” on the left and “Monetization & Impact” on the right. Build clear paired comparisons for searchability, social discovery, audience reach, content lifespan, video dimensions, revenue, commerce, and creator requirements. Illustrate each idea with friendly outlined icons: search windows, people networks, phones, coins, shopping bags, and arrows. Add compact technical-specification tables at the bottom, then a prominent concluding recommendation panel. Use rounded cards, thin grey rules, strong typographic hierarchy, generous spacing, and consistent icon scale. Keep all text readable at presentation size. Treat every figure and platform policy as a supplied claim to verify before final publication; do not invent supporting research.
+
+CREATIVE DECISIONS
+- Two large regions separate discovery from monetization.
+- Platform colors provide a fast visual legend.
+- Icons translate abstract platform mechanics into familiar objects.
+
+CRITICAL REFLECTION
+The original contains specific reach, revenue, and eligibility claims without visible citations. These need dated primary sources before academic use; the dense lower tables also require a full-screen view.
+
+================================================================
+
+INFOGRAPHICS / Viral vs. Trending
+
+A dark navy comparison poster using cyan and lavender for viral content and warm yellow and orange for trending content. A globe, a burning clock, an S-curve, a spike chart, repeated comparison tables, and three illustrated example cards explain the distinction.
+
+RECONSTRUCTED PROMPT
+Create a wide digital-literacy infographic titled “Viral vs. Trending: Aren’t They the Same Thing?” on a deep navy background. Set a large white headline and a concise explanatory deck across the top. Present two dominant concepts: VIRAL in cyan with a globe and an explosive star, and TRENDING in amber with a flaming clock. Explain reach, lifespan, triggers, and recommendation behavior in a central comparison table. Below, contrast a gradually accelerating S-curve with a sharp short-lived spike, using simple axes and clear labels. Include a small “search vs. share” visual metaphor and three white rounded example cards: an enduring cat meme, a temporary dance challenge, and a seasonal holiday drink list. Use flat vector-style illustrations, bright restrained gradients, legible sans-serif text, and a quick-test invitation. Prioritize a single clean comparison table, avoid repetition, and leave room for citations or notes explaining that virality and trending can overlap.
+
+CREATIVE DECISIONS
+- Cool and warm palettes distinguish the two concepts.
+- Graphs make time and engagement patterns visible.
+- Example cards turn a definition into an applied exercise.
+
+CRITICAL REFLECTION
+The supplied artwork repeats its central table and presents a simplified binary distinction. The numeric engagement threshold is uncited, so it should be discussed as a design example rather than an established definition.
+
+================================================================
+
+INFOGRAPHICS / Formula 1 vs. Formula E
+
+A dramatic side-by-side motorsport infographic. An orange sunset circuit and Formula 1 car occupy the left, while an electric turquoise and violet city circuit fills the right. A central dark panel compares powertrains, tracks, pit stops, performance, energy strategy, and sustainability claims.
+
+RECONSTRUCTED PROMPT
+Create a cinematic landscape comparison infographic titled “Formula 1 vs Formula E: Same Track? Very Different Race.” Split the composition vertically into two distinct racing worlds. On the left, place a detailed stylized Formula 1 car on a permanent circuit at golden sunset, with warm orange, red, and amber light and sparks. On the right, place an angular electric race car on a compact futuristic city circuit, using turquoise, violet, and cool green. Reserve the center for a dark translucent information column with illustrated icons for an engine, electric motor, circuit map, city map, tyre change, and battery. Organize supplied and verified race-series information into powertrain, track design, pit-stop format, acceleration, speed, duration, and energy strategy. End with a lower comparison panel discussing raw pace, energy management, and sustainability goals. Use white sans-serif text, large color-coded series labels, aligned data rows, and high contrast. Check each statistic and race-format rule against the specified season before rendering.
+
+CREATIVE DECISIONS
+- Opposing color temperatures make the series immediately distinct.
+- The central column gives technical material a stable reading axis.
+- Track environments connect engineering choices to race experience.
+
+CRITICAL REFLECTION
+Season-specific performance, pit-stop, and sustainability statements in the original have no visible citations and may vary by ruleset. Stylized cars communicate the concept but are not technical diagrams.
+
+================================================================
+
+INFOGRAPHICS / Meme, GIF, or Sticker?
+
+Three tall social-card panels explain memes, GIFs, and stickers on a pastel background. The yellow meme panel shows a fist-clenching toddler, the violet GIF panel an illustrated blinking reaction, and the mint sticker panel a hugging cartoon cat. Small use-case prompts run along the bottom.
+
+RECONSTRUCTED PROMPT
+Design a playful landscape visual explainer titled “Meme vs GIF vs Sticker: The Internet Has a Language”. Use a soft cream-to-lilac-to-aqua background and three equal rounded white cards with subtle shadows. Give the MEME card a yellow header and a familiar victory-reaction toddler example; give the GIF card a violet header and an illustrated expressive adult face; give the STICKER card a mint header and a cute orange cat offering a hug. Explain each format with one concise definition, a short historical context line, and an example caption. Add small floating hearts, chat bubbles, reaction symbols, and phone illustrations without obscuring the comparison. Use a friendly rounded display font with dark outlines for major titles and a clean readable sans-serif for body text. Along the bottom, show three practical choices: a relatable cultural joke, an active emotional reaction, and personal conversational warmth. Keep the categories clear while acknowledging their overlap and distinguish a static illustration of a GIF from an actual animated example.
+
+CREATIVE DECISIONS
+- Three equal cards encourage direct comparison.
+- Yellow, violet, and mint create a memorable category system.
+- Bottom questions connect format knowledge to real communication choices.
+
+CRITICAL REFLECTION
+A static image cannot demonstrate GIF motion. Historical dates and broad format definitions need source checking, and meme, GIF, and sticker categories can overlap.
+
+================================================================
+
+INFOGRAPHICS / Laptop vs. Tablet
+
+A bright two-column device comparison with a large laptop and overlapping desktop windows on the left, and a stylus-operated tablet on the right. Colored branching lines connect cooling, operating-system, accessories, and workflow notes. A lower icon row maps each device to common uses.
+
+RECONSTRUCTED PROMPT
+Create a polished landscape infographic titled “Laptop vs. Tablet: Which Device Fits Your Lifestyle?” on a clean white background. Place a large blue-violet illustrated laptop at left with visible coding, design, and video-editing windows, and a large drawing tablet held by hands at right with a stylus and expressive paint strokes. Use cyan-to-violet lines for the laptop and magenta-to-orange lines for the tablet, branching toward concise feature callouts. Explain desktop software and multitasking, cooling and sustained workloads, keyboard and ports, touch-first interaction, drawing mobility, and optional accessory costs. Add a lower row of small people-and-tool icons for long typing, programming, full desktop workflows, sketching, handheld use, and travel. Keep headings large and dark navy; align related notes symmetrically and use thin connector lines with generous white space. Frame claims as typical tendencies with device-specific exceptions, and avoid implying every laptop has a fan or every tablet follows the same operating-system model.
+
+CREATIVE DECISIONS
+- Large device illustrations anchor the comparison.
+- Branching lines connect each claim to the relevant device.
+- Use-case icons support a task-based decision.
+
+CRITICAL REFLECTION
+The original generalizes cooling, software, and accessory requirements across entire device categories. Hybrid devices and model-specific exceptions need acknowledgment.
+
+================================================================
+
+INFOGRAPHICS / Your Phone Knows More
+
+A central smartphone connects direct data collection on the left to inferred personal profiles on the right. Blue solid lines represent location, microphone, metadata, and sensor inputs; purple dotted networks lead to behavioral insights. A three-part privacy audit spans the bottom.
+
+RECONSTRUCTED PROMPT
+Produce a wide educational infographic titled “Your Phone Knows More About You Than You Think”. Use a white-to-icy-blue background, dark navy headings, cyan accents for directly collected information, and lavender accents for inferred insights. Center a large unbranded smartphone. On its left, arrange a clearly labeled list of possible data inputs: location, app activity, photo metadata, device diagnostics, and sensors, illustrated with simple outlined icons and solid cyan paths entering the phone. On its right, show a human profile silhouette surrounded by dotted purple connections and small behavior, health, commerce, and routine symbols. Explain the difference between collected data and statistical inference without implying every app has unrestricted access. Include a compact data-category table and a bottom “Quick Privacy Audit” with three practical checks: permissions and location, advertising preferences, and unused applications. Use concise text, an accessible reading order, and consistent icon geometry. Add sources and qualify all percentages, sensitive-inference claims, and operating-system instructions before publication.
+
+CREATIVE DECISIONS
+- The phone creates one clear visual focal point.
+- Solid and dotted paths distinguish collection from inference.
+- A bottom checklist moves the topic toward practical action.
+
+CRITICAL REFLECTION
+The original includes an uncited tracking percentage and broad claims about sensitive inference. Permissions and available controls vary by operating system, app, and jurisdiction.
+
+================================================================
+
+INFOGRAPHICS / From Idea to Viral Reel
+
+A ten-step horizontal process map is divided into creator strategy and platform algorithm phases. Illustrated cards cover concept, hook, script, filming, editing, posting, audience testing, engagement, recommendations, and possible virality. A large multicolor arrow links the phases.
+
+RECONSTRUCTED PROMPT
+Design a landscape process infographic titled “From Idea to Viral Reel: What Happens Behind the Scenes?” Divide the page into two phases: creator strategy, covering steps one through six, and platform distribution, covering steps seven through ten. Build a strong horizontal arrow through the center with small numbered connection points; alternate illustrated white cards above and below it. Include idea and audience need, opening hook, scripting, shooting, retention-focused editing, posting, initial test audience, engagement and retention signals, broader recommendations, and potential virality. Use friendly outlined illustrations of a brain and lightbulb, a phone, a script and stopwatch, a presenter, an editing timeline, hashtags, audience profiles, reaction symbols, and a rising graph. Shift the palette gradually from orange and coral to teal, blue, and violet as the process moves from human creation to distribution. Keep each caption short, emphasize iteration, and visibly state that virality is never guaranteed. Avoid presenting speculative algorithm mechanics or hashtag counts as universal rules.
+
+CREATIVE DECISIONS
+- The central arrow gives a long workflow an obvious direction.
+- Alternating cards prevent a single crowded text row.
+- Color progression marks the shift from creation to distribution.
+
+CRITICAL REFLECTION
+The source repeats a phrase in step one and makes specific claims about hashtags and algorithms without references. A real workflow is iterative, whereas this illustration is linear.
+
+================================================================
+
+INFOGRAPHICS / A World Without the Internet
+
+A six-column day-in-the-life scenario moves through morning, commute, college and work, afternoon, evening, and night. Phone failures, printed papers, cash, offline study, family board games, and stress charts visualize the effects of losing connectivity. The artwork uses muted peach, mint, yellow, and violet.
+
+RECONSTRUCTED PROMPT
+Create a wide editorial infographic titled “Imagine Waking Up to a World Without the Internet”. Structure the page as six adjacent chapters of a single day: morning, commute, college and work, afternoon, evening, and night. Give each chapter a colored arrow-shaped header, a simple time-of-day icon, two illustrated situations, and a concise consequence caption. Show unavailable news feeds leading to printed newspapers, commuters adapting without online media, students using physical books when cloud tools fail, digital payment and delivery disruption, a family replacing streaming with board games, and a quieter bedtime. Use warm paper-white, coral, teal, mustard, lavender, and mint with friendly hand-drawn editorial illustrations, thin dark outlines, and a bold condensed headline. Distinguish a temporary network outage scenario from a claim about all offline life. Include small clearly sourced charts only where evidence has been supplied; do not invent hospital costs or mental-health statistics. Maintain consistent panels, readable labels, and a clear morning-to-night reading flow.
+
+CREATIVE DECISIONS
+- A familiar daily routine makes a large systemic idea approachable.
+- Six colored chapter headers guide left-to-right reading.
+- Human scenes balance infrastructure effects with everyday experience.
+
+CRITICAL REFLECTION
+The original contains malformed small labels and uncited hospital-cost and mental-health figures. Its “before internet” labels are ambiguous, and a total outage differs from choosing a digital break.
+
+================================================================
+
+INFOGRAPHICS / Fake News: Can You Spot It?
+
+A white media-literacy infographic opens with three illustrated false-claim examples: a miracle water cure, a dubious official traffic announcement, and a shark in a city street. Below are credibility-check cards and a colored verification sequence labeled SIFT. The heading promises seven checks but only four numbered cards appear.
+
+RECONSTRUCTED PROMPT
+Create a landscape media-literacy infographic titled “Fake News: Can You Spot It?” with a vivid magenta-to-orange headline, clean white background, pale blue framing, and small geometric corner details. Across the upper half, place three example story cards: an implausible miracle-cure water bottle, a suspicious government traffic announcement, and a manipulated shark-on-a-city-street image. Mark each with a red flag and a short explanation of the warning sign. In the lower half, build a compact credibility checklist covering source and date, reading beyond headlines, evidence and corroboration, manipulated media, and emotional framing. Place an adjacent verification workflow in large colored tiles with simple stop-sign, search-window, and source-link icons. Use the complete four-part SIFT sequence—Stop, Investigate the source, Find better coverage, Trace claims to the original context—and make the number of listed checks match the heading. Use friendly editorial vector illustrations, strong navy typography, generous spacing, and plainly labeled fictional examples.
+
+CREATIVE DECISIONS
+- Concrete example headlines make abstract warning signs recognizable.
+- Red flags create a consistent visual cue for suspicion.
+- A lower action sequence turns awareness into a repeatable habit.
+
+CRITICAL REFLECTION
+The original says “7 quick credibility checks” but shows four numbered cards, and its SIFT diagram has only three tiles. The reconstructed prompt explicitly corrects these consistency issues.
+
+================================================================
+
+AI IMAGES / The Apple: Anticipation
+
+A portrait-format photorealistic scene of a young adult seated under an apple tree in a sunlit meadow. The person looks upward toward a red apple suspended beneath the branches with a slight vertical motion trace. Dark knitwear, loose grey jeans, and pale trainers contrast with warm grass and distant hazy hills.
+
+RECONSTRUCTED PROMPT
+Generate a photorealistic vertical editorial photograph in approximately a 3:4 aspect ratio. A young adult with tousled dark hair sits on the ground with their back against a large textured apple-tree trunk on the left. They wear an oversized charcoal sweater, loose grey-blue jeans, and off-white trainers; their knees are comfortably bent and both hands rest naturally. The head tilts upward and the eyes follow one red apple falling through the open space above the face. Place the apple well clear of the body, with a subtle downward motion trace while preserving its recognizable shape. Heavy branches and green leaves frame the upper edge, with a few apples still attached. Beyond the tree, show a quiet meadow and softly layered blue-grey hills. Use warm late-afternoon sunlight from the right, gentle dappled shadows, restrained film grain, realistic skin, distinct bark, and soft atmospheric depth. Keep the mood contemplative and curious, like the moment just before an idea arrives. Avoid text, logos, excessive glow, or exaggerated facial expression.
+
+CREATIVE DECISIONS
+- The trunk anchors the left edge and frames the seated subject.
+- The falling apple creates a clear upward eyeline and suspended moment.
+- Warm backlight and hazy hills establish a quiet pastoral mood.
+
+CRITICAL REFLECTION
+The suspended apple and vertical trace read as a stylized freeze-frame. It is an AI-created conceptual scene, not evidence of a historical event or a portrait of a verified person.
+
+================================================================
+
+AI IMAGES / The Apple: Resolution
+
+A matching portrait scene under an apple tree, with a seated young adult bringing a bitten red apple toward their mouth. The same dark sweater, relaxed grey jeans, pale trainers, sunlit meadow, and distant hills create continuity with the anticipation image.
+
+RECONSTRUCTED PROMPT
+Create a photorealistic vertical companion image to a pastoral apple-tree scene. Maintain the same young adult with tousled dark hair, oversized charcoal knit sweater, loose grey-blue jeans, and pale trainers, seated against the thick apple-tree trunk on the left. Keep the same camera height, three-quarter full-body framing, branch canopy, grassy meadow, distant softly hazed hills, and warm late-afternoon light. Change the action so the person looks downward and brings a red apple with a visible fresh bite toward their mouth in one hand. The other hand rests loosely over a bent knee. Preserve natural fingers, comfortable posture, believable cloth folds, textured bark, and dappled leaf shadows. Frame the upper half with green leaves and a few attached apples, and keep enough open sky for calm breathing space. Treat this as the quiet resolution of a two-image visual story: anticipation becomes an ordinary sensory moment. Use gentle photographic contrast, earthy greens, warm highlights, and realistic depth of field. Add no captions, graphic overlays, or artificial lens effects.
+
+CREATIVE DECISIONS
+- Matching wardrobe and landscape connect the two scenes.
+- The change in gaze completes a small visual narrative.
+- The bitten apple moves attention from open sky to the hand and face.
+
+CRITICAL REFLECTION
+The two supplied files establish visual similarity, but they do not prove the same seed, reference, model, or editing process was used. Identity and fine-detail continuity remain approximate.
+
+================================================================
+
+ARTICLES / Nepal Floods: A Disaster That Came Without Warning
+
+The first-page preview of a newspaper-style article with the masthead “TODAY’S NEWS”, the date 2 September 2026, and footer credit “Diksha Singh”. A large flood-rescue illustration is explicitly captioned “AI Generated”. The visible article discusses a Himalayan ice-and-rock collapse and flood response. This is displayed as supplied coursework, not verified news reporting.
+
+RECONSTRUCTED PROMPT
+Write and lay out an educational simulated news article titled “Nepal Floods: A Disaster That Came Without Warning”. Use a restrained newspaper design with an “International News” eyebrow, date line, oversized dark-grey “TODAY’S NEWS” masthead, thin horizontal rules, a strong serif article headline, and a large landscape image beneath it. Draft a clear lead explaining an imagined Himalayan ice-and-rock collapse, rapid downstream flooding, damaged roads and bridges, and rescue challenges. Follow with a short section titled “How did it happen?” written in accessible language, and a narrow right-hand sidebar about rescue access. Keep a calm, factual editorial tone while clearly labeling the entire exercise as a fictional or unverified coursework simulation. For the hero image, depict a muddy mountain valley and damaged bridge with rescue workers helping a resident, under overcast light; visibly caption the illustration “AI Generated”. Preserve the author credit supplied by the student, use readable body text and generous margins, and include source notes if any real event claims are introduced. Do not invent verified reporting, quotations, casualty figures, or institutional sources.
+
+CREATIVE DECISIONS
+- A newspaper masthead signals the editorial format.
+- The large rescue image establishes scale before the explanatory text.
+- A narrow sidebar separates rescue context from the main article.
+
+CRITICAL REFLECTION
+The built-in preview shows only the first page; the original Apple Pages document and extracted article text are retained. Embedded media includes a catastrophe infographic with uncited casualty and damage figures and a source photo with no established provenance. The event narrative and numbers must not be presented as verified reporting.
+
+SUPPORTING VISUAL: Flood rescue illustration
+Embedded in the Pages document; the document labels this illustration “AI Generated”.
+Reconstructed prompt:
+Create a photorealistic editorial illustration in a landscape 3:2 frame. Show a Himalayan mountain village after a severe flood, with brown turbulent water, a damaged concrete bridge, and tangled logs and rocks. In the foreground, uniformed rescue personnel carefully assist a resident in patterned clothing along a muddy path. Continue a line of workers toward the right background to create depth. Place misty green slopes and modest hillside buildings under soft overcast daylight. Use subdued earth tones and believable mud, fabric, and water texture. Avoid sensational gore and keep the human interaction respectful. Label the result AI Generated and present it only as a conceptual disaster illustration, never as documentary evidence.
+
+SUPPORTING VISUAL: Valley flood reference image
+Embedded source image. The file does not establish photographer, location, date, license, or whether AI was involved.
+Reconstructed prompt:
+Hypothetical visual recreation only: compose a vertical elevated view down a steep forested mountain valley. A pale muddy river runs from the upper left toward the lower center, with an expanding brown cloud of spray or debris in the distance. Show a winding road on one slope, dense dark green vegetation, and clusters of low buildings with red and blue metal roofs along the river. Use the compressed detail and uneven contrast of a handheld long-distance news image. Do not use this reconstruction to assert that the supplied reference was AI generated, or to claim a verified event, place, date, or photographer.
+
+SUPPORTING VISUAL: Glacial catastrophe infographic
+Embedded infographic with a visible “AI Gemini Notebook” mark; its disaster figures are unverified in the supplied files.
+Reconstructed prompt:
+Design a wide educational disaster-process infographic on a pale ice-blue background. Use a flowing illustrated river as the main compositional line: begin at a faceted Himalayan glacier on the upper left, then carry water, rocks, wood, and damaged small structures diagonally toward the lower right. Arrange bold dark headings and flat outlined icons around the river for scale, infrastructure, agriculture, regional risk, and recovery. Use red, orange, green, and blue capsules to organize any supplied statistics, with readable numerals and concise notes. Add mountain-lake, bridge, power-line, paddy-field, satellite, globe, and evidence-identification symbols. Clearly label the piece as an illustrative scenario. Include no casualty, damage, speed, distance, or risk figure without an identified source and date, and distinguish verified data from hypothetical design placeholders.
+
+================================================================
+
+PODCASTS / Cars
+
+A motoring-themed audio submission, supplied as Cars.m4a. Its original script, prompt and voice settings were not included in the assignment files.
+
+RECONSTRUCTED PROMPT
+Reconstructed production brief, using the submitted title and 6:17 runtime: Create an approximately six-minute educational podcast introducing a focused question about cars. Begin with a concrete everyday observation, define the terms a first-time listener needs, and structure the episode around three clear questions rather than a list of disconnected facts. Use an approachable host voice and a measured conversational pace, with brief pauses between sections. When explaining a mechanical idea, translate it into a familiar physical analogy before introducing the technical term. Distinguish supported evidence from opinion and cite the supplied research in the companion notes. End with a short recap that returns to the opening question. Keep speech prominent, avoid constant background music, and export a clean audio master. The final episode's particular claims and speaker arrangement must be confirmed against the recording; this prompt proposes a plausible workflow rather than reproducing an unavailable original.
+
+CREATIVE DECISIONS
+- An opening question gives a broad motoring subject a clear throughline.
+- Familiar analogies can make mechanical explanations easier to follow without visuals.
+- A speech-first mix keeps an educational audio piece intelligible.
+
+CRITICAL REFLECTION
+The filename establishes the subject area, but not the episode's claims. A transcript, cited research and original generation settings would make the creative process independently auditable.
+
+================================================================
+
+PODCASTS / Phone Know
+
+A 4:48 audio submission filed as Phone know.m4a. The reconstruction treats the title as a smartphone topic; the specific argument has not been inferred from unheard dialogue.
+
+RECONSTRUCTED PROMPT
+Reconstructed production brief, based on the filename Phone know and a 4:48 runtime: Develop a short, accessible audio discussion about understanding smartphones. Choose one practical question and make it explicit in the opening. Explain technical terms in ordinary language and connect each idea to a recognisable user task, such as communicating, taking photographs or managing everyday use. Organise the episode into an opening question, three concise explanatory sections and a closing decision framework. Ask natural follow-up questions that move the listener from a headline claim to the reason behind it. Use calm, clearly articulated voices, audible breathing space between ideas and consistent speech levels. Avoid unsupported recommendations, invented specifications and promotional language. Use only verified source material for device-specific claims. Produce a clean audio file and a separate source list. Match the recording's actual language and speaker configuration after reviewing the source; neither is established by the file name alone.
+
+CREATIVE DECISIONS
+- A single practical question keeps a short episode focused.
+- Every technical point is tied to a recognisable task for the listener.
+- Device claims require source notes because specifications and software change.
+
+CRITICAL REFLECTION
+The production prompt is a proposed reconstruction, not evidence of the recorded script. Transcription would be needed to evaluate accuracy, pacing and the balance of explanations.
+
+================================================================
+
+PODCASTS / Reels & Shorts
+
+The supplied Reels & Shorts audio asset, running 6:22. Its filename identifies short-form video as the topic; no original transcript or research list accompanied it.
+
+RECONSTRUCTED PROMPT
+Reconstructed production brief, using the submitted Reels & Shorts title: Create an approximately six-minute educational podcast comparing two short-form video environments. Open with a creator choosing where to publish a new idea. Build the discussion around audience discovery, the viewing experience and the work required to maintain a publishing routine. Separate stable creative principles from platform rules that may change. Use concise examples to show how an opening hook, clear visual information and a purposeful ending can affect the experience of a short video. Include one counterpoint so the discussion avoids presenting a universal winner. Write natural spoken transitions and keep the language clear to a non-specialist. Use a clean, speech-led mix with gentle section pauses. Verify every platform limit, monetisation statement and dated feature against current primary sources before recording, and retain the source list with the project. The supplied recording should determine the final language, voices and exact claims; these details are not recoverable from its title alone.
+
+CREATIVE DECISIONS
+- A creator's publishing decision gives the comparison an understandable use case.
+- A counterpoint prevents the format from implying one platform suits everyone.
+- Platform facts should be dated and separated from broader storytelling advice.
+
+CRITICAL REFLECTION
+The comparison needs dated primary sources to support platform claims. Original script versions and a transcript would reveal how research was transformed into the final spoken narrative.
+
+================================================================
+
+PODCASTS / Tablets
+
+A tablet-themed audio submission, supplied as Tablets.m4a. This listening item is paired with a proposed educational prompt rather than an asserted original instruction.
+
+RECONSTRUCTED PROMPT
+Reconstructed production brief, based on the Tablets filename and a runtime near six minutes: Produce an accessible educational podcast about what a tablet can offer in everyday study and creative work. Start with a specific user scenario, then explore the connection between form factor, input method and the tasks a device can support. Use three distinct sections, each beginning with a listener question and ending with a short takeaway. Explain trade-offs in ordinary language and distinguish convenience from capability. Keep examples conditional rather than claiming a particular product is best. Use a warm, clearly articulated delivery, natural conversational pauses and a consistent audio level; the listener should be able to understand the piece without seeing a screen. Check any product specifications, app limitations or purchasing claims against a dated source. Finish by returning to the opening scenario and outlining questions a listener could use to make their own assessment. The exact topic sequence and speaker configuration remain subject to the supplied recording.
+
+CREATIVE DECISIONS
+- A task-based structure makes a broad device topic easier to navigate.
+- Conditional examples keep the discussion applicable to different needs.
+- Spoken signposting replaces the visual headings available in an infographic.
+
+CRITICAL REFLECTION
+The source title supports a tablet topic but not specific recommendations. A transcript and source bibliography would be needed before treating this as evidence for a purchasing decision.
+
+================================================================
+
+PODCASTS / Nepal Glacial Flood
+
+A 5:13 audio asset submitted under the title The Catastrophic 2026 Nepal Glacial Flood. That title is preserved as assignment context; its event claims have not been independently verified here.
+
+RECONSTRUCTED PROMPT
+Reconstructed production brief, based on the supplied Nepal glacial-flood filename: Develop a five-minute educational audio explainer that carefully separates the general science of glacial flooding from reporting about one named event. Begin with the geographic setting and define a glacial lake outburst in plain language. Then move through the physical mechanism, the kinds of downstream risk and the purpose of monitoring and preparedness. Where the supplied source pack describes a particular flood, state its date and location precisely and attribute any figures. Do not invent eyewitness accounts, casualty counts, quotes or dramatic sound recordings. Use respectful, measured narration and clear section transitions rather than sensational music. End by identifying what is established, what remains uncertain and which primary sources a listener can consult. Verify that any event suggested by the source title actually occurred before presenting it as news. The original script and prompt were not supplied, so this brief describes an academically defensible reconstruction, not a recovered record of generation.
+
+CREATIVE DECISIONS
+- General physical explanation and event-specific reporting are kept distinct.
+- Measured narration suits a subject involving possible harm and loss.
+- Dates, locations and numerical claims require attributable primary evidence.
+
+CRITICAL REFLECTION
+The filename contains a specific dated catastrophe claim. Establish the event from reliable sources and audit the recording against them before using its narrative as factual evidence in an assessment.
+
+================================================================
+
+PODCASTS / Viral Reel
+
+A short-form-video-themed audio submission, supplied as Viral reel.m4a. The paired prompt is an interpretation of the title rather than a transcript of the episode.
+
+RECONSTRUCTED PROMPT
+Reconstructed production brief, based on the title Viral reel and a six-minute runtime: Create an educational podcast investigating why some short videos attract attention and sharing. Begin with a clearly labelled hypothetical example rather than an invented success story. Explore three possible creative factors: an understandable opening, a satisfying progression and an ending that rewards the audience's time. Explain that performance depends on context, audience and distribution, and avoid promising virality or presenting an algorithm as fully knowable. Use simple spoken examples, thoughtful follow-up questions and a concise recap at the end of each section. Keep the delivery lively but intelligible and leave space between major ideas. Balance any practical suggestions with limitations and use verified evidence for numerical claims. Deliver a clean audio master alongside the working script and source notes. Review the actual recording before assigning its exact language, voice count or argument to this reconstruction; those details are not established by the filename.
+
+CREATIVE DECISIONS
+- Hypothetical examples demonstrate a technique without inventing a case study.
+- A clear three-part structure makes an abstract topic audible.
+- Limitations prevent creative guidance from becoming a guarantee of reach.
+
+CRITICAL REFLECTION
+Virality is not a reproducible promise. A strong academic treatment should distinguish observations, hypotheses and supported evidence, then include the original generation and revision record.
+
+================================================================
+
+EXPLAINER FILMS / Formula E vs F1
+
+A portrait explainer comparing Formula E and Formula 1 through a paper sketchbook world: street circuits, electric-motor anatomy, battery systems and racing strategy. Gemini Notebook branding is visible in the submitted film.
+
+RECONSTRUCTED PROMPT
+Reconstructed from inspected frames: Create a 9:16 educational explainer comparing Formula E with Formula 1 in an illustrated engineering sketchbook. Place textured cream paper on a warm wooden desk, using graphite outlines, restrained watercolour fills, taped annotations and torn-paper caption strips. Open with an electric single-seater on a narrow city circuit. Move to a labelled cutaway of a copper-wound electric motor, then a battery pack in a workshop, before returning to complete race cars for the comparison. Let each illustration answer one question; introduce torque delivery, energy storage and race-management trade-offs only where supported by the supplied research. Use turquoise accents for electric racing and a contrasting red vehicle for the visual comparison. Animate with controlled page-like transitions, modest camera moves and legible subtitles in the lower safe area. Keep narration clear and synchronise each image change with the corresponding concept. End with a balanced comparison rather than a universal winner. This is a visual reconstruction; the exact original wording, narration prompt and generator settings are unavailable.
+
+CREATIVE DECISIONS
+- A physical sketchbook connects mechanical concepts to the feeling of an engineering notebook.
+- Cutaway views make motor and battery components visible before the comparison returns to whole cars.
+- Turquoise and red give the two racing subjects distinct visual identities.
+
+CRITICAL REFLECTION
+The handmade aesthetic makes technical material approachable. The comparative claims and any recurring beat labels should be checked against the source research, and subtitles need a mobile-size legibility pass.
+
+================================================================
+
+EXPLAINER FILMS / Tablet vs Laptop
+
+An illustrated portrait film about choosing between a tablet and a laptop. Inspected frames use touch and keyboard examples, a cooling-fan cutaway and desktop software imagery to visualise device trade-offs.
+
+RECONSTRUCTED PROMPT
+Reconstructed from inspected frames: Make a 9:16 educational explainer titled Tablet vs Laptop: How to Choose Your Next Device. Build an uncluttered cream-paper sketchbook with thin graphite outlines and quiet teal, orange and grey watercolour accents. Begin with a simple grid of devices and the activities they suggest, then move through a few clearly separated comparisons. Show a laptop cooling system as a cutaway when discussing thermal design, hands over a keyboard for precision text input, a stylus over a tablet for drawing, and a laptop screen with a file browser and editing timeline for desktop workflows. Use one principal illustration per beat and avoid filling the page with decorative objects. Place short subtitle fragments on torn cream paper in a consistent safe area. Make transitions feel like moving between neighbouring notebook pages. Use concise explanatory narration and present capabilities as task-dependent, checking any software or hardware claims against the supplied sources. Close with questions about the viewer's own workload. The visible result informs this proposed prompt; the original script, language settings and generation history were not supplied.
+
+CREATIVE DECISIONS
+- A consistent paper surface makes several hardware and software ideas feel part of one story.
+- Hands, keys and a stylus turn abstract input differences into observable actions.
+- The comparison moves from components to real workflows to support a practical decision.
+
+CRITICAL REFLECTION
+The film has a coherent illustrative language. Small screen details and caption placement should be reviewed on a phone, and software limitations need dated sources because they change between devices and versions.
+
+================================================================
+
+EXPLAINER FILMS / The Impact of Influencer Culture
+
+The file originally named Video explainer.mp4 is a Hindi presentation on influencer culture. Its visible chapters cover influencer development, micro versus mega creators, consumer behaviour, youth and mental health, and ethical concerns.
+
+RECONSTRUCTED PROMPT
+Reconstructed from inspected slides: Produce a 16:9 Hindi educational video about इन्फ्लुएंसर कल्चर का असर. Use a white, faintly gridded presentation surface, black handwritten-style illustrations, orange emphasis and a few pink numbered chapter cards. Start with the title and a smartphone surrounded by small social and media symbols. Present six clear chapters: the development of influencers, micro versus mega creators, effects on consumer behaviour, youth and mental health, ethical questions, and the dated outlook stated in the supplied source material. Use simple audience diagrams, speech bubbles, small charts and clearly labelled icons to make each point visible. Pair the slides with measured Hindi narration and give text enough screen time to read. Retain a consistent hierarchy of large heading, single central idea and a concise supporting annotation. Attribute quotations and every statistic in accompanying source notes; do not fabricate survey results. Close by returning to responsible interpretation of influence. This proposed prompt describes the visible treatment and structure, not an unavailable historical prompt or verified transcript.
+
+CREATIVE DECISIONS
+- Hindi headings make the subject accessible in the language visibly used by the submission.
+- Numbered chapter cards provide orientation across a longer six-minute film.
+- Micro and mega creator diagrams make audience-scale differences immediately visible.
+
+CRITICAL REFLECTION
+The chapter structure is clear, but some slides contain numerical claims and quotations whose sources are not visible in the extracted frames. A bibliography and an audit of dated outlook claims would strengthen academic credibility.
+
+================================================================
+
+EXPLAINER FILMS / YouTube Shorts vs Reels
+
+A portrait scrapbook comparison, submitted as YouTube Shorts vs Reels in 2026. Watercolour cards, platform colours, illustrated audiences and a shopping example turn the platform comparison into a sequence of visual beats.
+
+RECONSTRUCTED PROMPT
+Reconstructed from inspected frames: Create a 9:16 educational film comparing YouTube Shorts and Instagram Reels, with the reference year 2026 clearly treated as a dated snapshot. Use an ivory sketchbook, rough-edged paper cutouts, pencil contours and lightly textured watercolour fills. Open with four simple cards suggesting creation, discovery, music and revenue, then show a central phone surrounded by illustrated audience figures and paper planes. Introduce the two platforms with recognisable red and magenta-purple colour cues. Use balanced side-by-side comparison frames when discussing equivalent functions, and a phone showing a jacket-shopping example to illustrate commerce. Add short narration-aligned subtitle strips in the lower safe area, leaving the main visual uncluttered. Give each claim one clear image and use restrained page transitions. Verify upload limits, shopping availability and every monetisation statement against primary platform documentation for the stated date. End with a conditional choice based on the creator's goal. The supplied visuals establish this reconstructed treatment; exact narration, model parameters and original instructions remain unavailable.
+
+CREATIVE DECISIONS
+- Platform colours help the viewer track each side of the comparison.
+- Audience figures and a shopping example translate product features into visible use cases.
+- A repeatable notebook style connects icons, characters and interface illustrations.
+
+CRITICAL REFLECTION
+The comparison is visually easy to follow. Its dated feature claims, including visible upload-duration labels and commerce availability, should be checked against current platform documentation before presentation as factual guidance.
+
+================================================================
+
+AI SONGS / Main Character Hoon
+
+An original Suno link supplied in the assignment screenshot. The prompt below is a title-based creative reconstruction; the song’s audio and generation history were not supplied as files.
+
+RECONSTRUCTED PROMPT
+Write an original Hindi/Hinglish song titled “Main Character Hoon” about finding confidence in an ordinary day. Build a first-person narrative with a memorable recurring title phrase, clear verse-to-chorus development, and everyday images rather than borrowed lines. As a proposed musical treatment, use a buoyant contemporary pop groove, a warm bass line, restrained rhythmic percussion, and a chorus that opens into a fuller arrangement. Let the performance move from conversational verses to an assured, melodic hook. Keep the vocal intelligible and leave space between phrases. Avoid references to any existing singer or song. This is a title-led creative proposal: confirm the actual lyrics, genre, arrangement, voice, and generation settings by reviewing the linked recording.
+
+CREATIVE DECISIONS
+- The supplied title anchors an original lyrical concept.
+- The proposed arrangement gives the hook a clear place in the song.
+- Reviewing the linked track is necessary to match its actual musical details.
+
+CRITICAL REFLECTION
+The screenshot establishes the title and song link. It does not establish lyrics, genre, model version, authorship settings, or the original prompt. Those details should be added from the Suno project history before presenting this as a fully documented production record.
+
+================================================================
+
+AI SONGS / Scene Bana Do
+
+An original Suno link supplied in the assignment screenshot. The prompt below is a title-based creative reconstruction; the song’s audio and generation history were not supplied as files.
+
+RECONSTRUCTED PROMPT
+Develop an original Hindi/Hinglish song titled “Scene Bana Do”. Use the title as an energetic invitation to turn a small shared moment into something memorable. Create concise verses, a rising pre-chorus, and a repeatable chorus built around an original title hook. As a possible production direction, combine a tight danceable beat, syncopated bass, short rhythmic instrumental responses, and a lively lead vocal. Give the chorus a clear lift without covering the words; introduce a brief contrast section before the final refrain. Write original lyrics and preserve natural pronunciation. The title is supplied evidence; this suggested musical direction is not a recovered description of the recording. Match the final style to the linked track when its audio and original settings can be reviewed.
+
+CREATIVE DECISIONS
+- The supplied title anchors an original lyrical concept.
+- The proposed arrangement gives the hook a clear place in the song.
+- Reviewing the linked track is necessary to match its actual musical details.
+
+CRITICAL REFLECTION
+The screenshot establishes the title and song link. It does not establish lyrics, genre, model version, authorship settings, or the original prompt. Those details should be added from the Suno project history before presenting this as a fully documented production record.
+
+================================================================
+
+AI SONGS / Bas Nikalna Hai
+
+An original Suno link supplied in the assignment screenshot. The prompt below is a title-based creative reconstruction; the song’s audio and generation history were not supplied as files.
+
+RECONSTRUCTED PROMPT
+Write an original Hindi song titled “Bas Nikalna Hai”, using the desire to step out as an emotional throughline. Develop an opening scene, an internal hesitation, and a chorus that turns that hesitation into forward movement. Keep the language direct and singable, with specific physical details rather than generic motivational claims. One possible musical treatment is a reflective pop arrangement that begins with a restrained guitar or keyboard motif and gains drums and bass as the resolve strengthens. Maintain a clear lead vocal, a recognizable melodic refrain, and a purposeful ending. Do not imitate an existing artist or reuse existing lyrics. This prompt is a title-based reconstruction and proposes a mood; the actual track must establish its genre, instrumentation, lyrics, vocal identity, and pacing.
+
+CREATIVE DECISIONS
+- The supplied title anchors an original lyrical concept.
+- The proposed arrangement gives the hook a clear place in the song.
+- Reviewing the linked track is necessary to match its actual musical details.
+
+CRITICAL REFLECTION
+The screenshot establishes the title and song link. It does not establish lyrics, genre, model version, authorship settings, or the original prompt. Those details should be added from the Suno project history before presenting this as a fully documented production record.
+
+================================================================
+
+AI SONGS / Flavours of India
+
+An original Suno link supplied in the assignment screenshot. The prompt below is a title-based creative reconstruction; the song’s audio and generation history were not supplied as files.
+
+RECONSTRUCTED PROMPT
+Create an original song titled “Flavours of India”. Use sensory details of food, shared tables, and everyday travel to create a welcoming narrative. Organise the lyrics into focused verses and a memorable chorus, avoiding a checklist of stereotypes or claims to represent every region. As a possible arrangement, blend contemporary rhythm with a small, intentional selection of acoustic textures and hand percussion. Give each instrumental layer a clear role, preserve vocal clarity, and use a short contrasting bridge before the final chorus. Verify cultural references and pronunciation; avoid imitating named performers. Only the title and Suno link are established by the supplied screenshot. This is a proposed creative brief, not a claim about the track’s actual lyrics, languages, regional styles, or arrangement.
+
+CREATIVE DECISIONS
+- The supplied title anchors an original lyrical concept.
+- The proposed arrangement gives the hook a clear place in the song.
+- Reviewing the linked track is necessary to match its actual musical details.
+
+CRITICAL REFLECTION
+The screenshot establishes the title and song link. It does not establish lyrics, genre, model version, authorship settings, or the original prompt. Those details should be added from the Suno project history before presenting this as a fully documented production record.
+
+================================================================
+
+AI SONGS / Amity Ki Kahani
+
+An original Suno link supplied in the assignment screenshot. The prompt below is a title-based creative reconstruction; the song’s audio and generation history were not supplied as files.
+
+RECONSTRUCTED PROMPT
+Write an original Hindi/Hinglish campus song titled “Amity Ki Kahani”. Tell a personal-feeling student story through lectures, friendships, small setbacks, creative work, and the sense of a shared chapter coming together. Use concrete scenes without inventing an institution’s official statements or achievements. Build clear verses, a chorus using the original title phrase, and a bridge that reflects on what has changed. A proposed production approach is warm contemporary pop with an approachable vocal, rhythmic acoustic or keyboard texture, supportive bass, and a fuller final refrain. Keep the words understandable and avoid existing lyrics or imitation of a named artist. This is a reconstruction based on the supplied title; the actual recording and generation log are needed to establish its language, music, lyrics, and intended institutional context.
+
+CREATIVE DECISIONS
+- The supplied title anchors an original lyrical concept.
+- The proposed arrangement gives the hook a clear place in the song.
+- Reviewing the linked track is necessary to match its actual musical details.
+
+CRITICAL REFLECTION
+The screenshot establishes the title and song link. It does not establish lyrics, genre, model version, authorship settings, or the original prompt. Those details should be added from the Suno project history before presenting this as a fully documented production record.
+
+================================================================
+
+AI SONGS
+
+Main Character Hoon
+https://suno.com/song/652c4e02-5f15-47b5-89fc-6a5ef9d94080
+
+Scene Bana Do
+https://suno.com/song/9e2303cd-ab7d-4c38-9e41-c0025da5c957
+
+Bas Nikalna Hai
+https://suno.com/song/607429c4-cadb-4f42-9c96-f096a43968a8
+
+Flavours of India
+https://suno.com/song/9cbaeb45-6b9d-4079-829a-c73325c03c21
+
+Amity Ki Kahani
+https://suno.com/song/9e8f5efa-a751-4af6-a834-c3ed6070e005

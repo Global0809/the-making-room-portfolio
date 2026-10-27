@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#403628">
+  <meta name="description" content="Step into The Making Room: Diksha Singh's AI creative portfolio, with images, infographics, films, podcasts, songs, and the reconstructed prompts behind them.">
+  <title>The Making Room | Diksha Singh</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23403628'/%3E%3Ctext x='32' y='45' text-anchor='middle' font-size='44' fill='%23e5c43d' font-family='Georgia'%3EM%3C/text%3E%3C/svg%3E">
+  <link rel="preload" href="fonts/display.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a class="skip-link" href="#browse">Skip the room and browse work</a>
+  <main id="studio">
+    <canvas id="room" aria-label="Interactive 3D creative studio. Use the menu or Browse work to explore all collections."></canvas>
+    <div class="room-scrim" aria-hidden="true"></div>
+    <header class="topbar">
+      <a class="identity" href="#" aria-label="Diksha Singh, The Making Room. Return to room"><strong>Diksha Singh</strong><span>The Making Room</span></a>
+      <nav aria-label="Studio controls">
+        <button class="round-control sound-control" id="sound" aria-label="Sound off. Turn sound on" aria-pressed="false"><span class="sound-icon" aria-hidden="true">♫</span><span class="sound-label">Sound off</span></button>
+        <button class="round-control" id="hints" aria-pressed="false">Hints</button>
+        <button class="round-control" id="menu" aria-haspopup="dialog">Menu <span aria-hidden="true">+</span></button>
+      </nav>
+    </header>
+    <section class="welcome" aria-labelledby="welcome-title">
+      <p class="intro-label">An AI creative portfolio</p>
+      <h1 id="welcome-title">Welcome to<br>my AI studio.</h1>
+      <p class="intro-copy">Every piece starts with a possibility. Explore the work, then uncover the prompts that could have made it.</p>
+      <button class="primary" id="browse">Browse work <span aria-hidden="true">↗</span></button>
+    </section>
+    <div class="discovery"><span id="discovered">0 of 27 works explored</span><span class="separator" aria-hidden="true">/</span><button id="process">Behind the process</button></div>
+    <div class="room-options"><button id="light" aria-label="Afternoon light. Switch to evening">Afternoon <span aria-hidden="true">☼</span></button><button id="motion" aria-pressed="true">Motion on</button></div>
+    <div id="tooltip" role="status" aria-live="polite"></div>
+    <div id="hint-layer" hidden aria-label="Collections in the room">
+      <button data-category="AI images" style="--x:27%;--y:23%">AI images <span>2</span></button>
+      <button data-category="Process" style="--x:31%;--y:43%">The process</button>
+      <button data-category="Infographics" style="--x:62%;--y:38%">Infographics <span>9</span></button>
+      <button data-category="Podcasts" style="--x:85%;--y:40%">Podcasts <span>6</span></button>
+      <button data-category="AI songs" style="--x:75%;--y:63%">AI songs <span>5</span></button>
+      <button data-category="Explainer films" style="--x:61%;--y:76%">Explainer films <span>4</span></button>
+      <button data-category="Articles" style="--x:87%;--y:77%">Articles <span>1</span></button>
+    </div>
+    <p id="room-status" class="loading-status" role="status">Arranging the studio…</p>
+  </main>
+  <dialog id="exhibition" aria-labelledby="dialog-title">
+    <div class="dialog-bar"><button id="back" class="text-button" hidden>← Collection</button><span id="dialog-context">The collection</span><button id="close" class="close-button" aria-label="Close exhibition">×</button></div>
+    <div id="exhibition-content"></div>
+  </dialog>
+  <div id="toast" role="status" aria-live="polite"></div>
+  <noscript><div class="noscript">This interactive exhibition needs JavaScript. Your supplied files are preserved in the downloadable portfolio package.</div></noscript>
+  <script src="vendor/gsap.min.js" defer></script>
+  <script type="module" src="app.js"></script>
+</body>
+</html>

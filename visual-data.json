@@ -1,0 +1,256 @@
+[
+  {
+    "id": "reels-vs-shorts",
+    "title": "Reels vs. YouTube Shorts",
+    "category": "Infographics",
+    "src": "assets/reels-vs-shorts.webp",
+    "thumbnail": "assets/reels-vs-shorts-thumb.webp",
+    "original": "assets/reels-vs-shorts.webp",
+    "description": "A wide, white comparison sheet titled “The 2026 Short-Form Showdown”. The left half compares search discovery and social reach; the right half covers revenue, brand deals, shopping, and a final platform-choice verdict. Red Shorts icons and Instagram gradients distinguish the two platforms. A Gemini Notebook mark appears at the lower right.",
+    "prompt": "Design a high-resolution landscape educational infographic titled “Reels vs. YouTube Shorts: The 2026 Short-Form Showdown”. Use a white editorial canvas, bold condensed black sans-serif headings, red YouTube Shorts accents and orange–magenta–purple Instagram accents. Divide the sheet into two main regions: “The Specs & Discovery” on the left and “Monetization & Impact” on the right. Build clear paired comparisons for searchability, social discovery, audience reach, content lifespan, video dimensions, revenue, commerce, and creator requirements. Illustrate each idea with friendly outlined icons: search windows, people networks, phones, coins, shopping bags, and arrows. Add compact technical-specification tables at the bottom, then a prominent concluding recommendation panel. Use rounded cards, thin grey rules, strong typographic hierarchy, generous spacing, and consistent icon scale. Keep all text readable at presentation size. Treat every figure and platform policy as a supplied claim to verify before final publication; do not invent supporting research.",
+    "promptStatus": "Reconstructed from the supplied artwork; not a recovered original prompt.",
+    "decisions": [
+      "Two large regions separate discovery from monetization.",
+      "Platform colors provide a fast visual legend.",
+      "Icons translate abstract platform mechanics into familiar objects."
+    ],
+    "critique": "The original contains specific reach, revenue, and eligibility claims without visible citations. These need dated primary sources before academic use; the dense lower tables also require a full-screen view."
+  },
+  {
+    "id": "viral-vs-trending",
+    "title": "Viral vs. Trending",
+    "category": "Infographics",
+    "src": "assets/viral-vs-trending.webp",
+    "thumbnail": "assets/viral-vs-trending-thumb.webp",
+    "original": "assets/viral-vs-trending.webp",
+    "description": "A dark navy comparison poster using cyan and lavender for viral content and warm yellow and orange for trending content. A globe, a burning clock, an S-curve, a spike chart, repeated comparison tables, and three illustrated example cards explain the distinction.",
+    "prompt": "Create a wide digital-literacy infographic titled “Viral vs. Trending: Aren’t They the Same Thing?” on a deep navy background. Set a large white headline and a concise explanatory deck across the top. Present two dominant concepts: VIRAL in cyan with a globe and an explosive star, and TRENDING in amber with a flaming clock. Explain reach, lifespan, triggers, and recommendation behavior in a central comparison table. Below, contrast a gradually accelerating S-curve with a sharp short-lived spike, using simple axes and clear labels. Include a small “search vs. share” visual metaphor and three white rounded example cards: an enduring cat meme, a temporary dance challenge, and a seasonal holiday drink list. Use flat vector-style illustrations, bright restrained gradients, legible sans-serif text, and a quick-test invitation. Prioritize a single clean comparison table, avoid repetition, and leave room for citations or notes explaining that virality and trending can overlap.",
+    "promptStatus": "Reconstructed from the supplied artwork; not a recovered original prompt.",
+    "decisions": [
+      "Cool and warm palettes distinguish the two concepts.",
+      "Graphs make time and engagement patterns visible.",
+      "Example cards turn a definition into an applied exercise."
+    ],
+    "critique": "The supplied artwork repeats its central table and presents a simplified binary distinction. The numeric engagement threshold is uncited, so it should be discussed as a design example rather than an established definition."
+  },
+  {
+    "id": "formula-one-vs-formula-e",
+    "title": "Formula 1 vs. Formula E",
+    "category": "Infographics",
+    "src": "assets/formula-one-vs-formula-e.webp",
+    "thumbnail": "assets/formula-one-vs-formula-e-thumb.webp",
+    "original": "assets/formula-one-vs-formula-e.webp",
+    "description": "A dramatic side-by-side motorsport infographic. An orange sunset circuit and Formula 1 car occupy the left, while an electric turquoise and violet city circuit fills the right. A central dark panel compares powertrains, tracks, pit stops, performance, energy strategy, and sustainability claims.",
+    "prompt": "Create a cinematic landscape comparison infographic titled “Formula 1 vs Formula E: Same Track? Very Different Race.” Split the composition vertically into two distinct racing worlds. On the left, place a detailed stylized Formula 1 car on a permanent circuit at golden sunset, with warm orange, red, and amber light and sparks. On the right, place an angular electric race car on a compact futuristic city circuit, using turquoise, violet, and cool green. Reserve the center for a dark translucent information column with illustrated icons for an engine, electric motor, circuit map, city map, tyre change, and battery. Organize supplied and verified race-series information into powertrain, track design, pit-stop format, acceleration, speed, duration, and energy strategy. End with a lower comparison panel discussing raw pace, energy management, and sustainability goals. Use white sans-serif text, large color-coded series labels, aligned data rows, and high contrast. Check each statistic and race-format rule against the specified season before rendering.",
+    "promptStatus": "Reconstructed from the supplied artwork; not a recovered original prompt.",
+    "decisions": [
+      "Opposing color temperatures make the series immediately distinct.",
+      "The central column gives technical material a stable reading axis.",
+      "Track environments connect engineering choices to race experience."
+    ],
+    "critique": "Season-specific performance, pit-stop, and sustainability statements in the original have no visible citations and may vary by ruleset. Stylized cars communicate the concept but are not technical diagrams."
+  },
+  {
+    "id": "meme-gif-sticker",
+    "title": "Meme, GIF, or Sticker?",
+    "category": "Infographics",
+    "src": "assets/meme-gif-sticker.webp",
+    "thumbnail": "assets/meme-gif-sticker-thumb.webp",
+    "original": "assets/meme-gif-sticker.webp",
+    "description": "Three tall social-card panels explain memes, GIFs, and stickers on a pastel background. The yellow meme panel shows a fist-clenching toddler, the violet GIF panel an illustrated blinking reaction, and the mint sticker panel a hugging cartoon cat. Small use-case prompts run along the bottom.",
+    "prompt": "Design a playful landscape visual explainer titled “Meme vs GIF vs Sticker: The Internet Has a Language”. Use a soft cream-to-lilac-to-aqua background and three equal rounded white cards with subtle shadows. Give the MEME card a yellow header and a familiar victory-reaction toddler example; give the GIF card a violet header and an illustrated expressive adult face; give the STICKER card a mint header and a cute orange cat offering a hug. Explain each format with one concise definition, a short historical context line, and an example caption. Add small floating hearts, chat bubbles, reaction symbols, and phone illustrations without obscuring the comparison. Use a friendly rounded display font with dark outlines for major titles and a clean readable sans-serif for body text. Along the bottom, show three practical choices: a relatable cultural joke, an active emotional reaction, and personal conversational warmth. Keep the categories clear while acknowledging their overlap and distinguish a static illustration of a GIF from an actual animated example.",
+    "promptStatus": "Reconstructed from the supplied artwork; not a recovered original prompt.",
+    "decisions": [
+      "Three equal cards encourage direct comparison.",
+      "Yellow, violet, and mint create a memorable category system.",
+      "Bottom questions connect format knowledge to real communication choices."
+    ],
+    "critique": "A static image cannot demonstrate GIF motion. Historical dates and broad format definitions need source checking, and meme, GIF, and sticker categories can overlap."
+  },
+  {
+    "id": "laptop-vs-tablet",
+    "title": "Laptop vs. Tablet",
+    "category": "Infographics",
+    "src": "assets/laptop-vs-tablet.webp",
+    "thumbnail": "assets/laptop-vs-tablet-thumb.webp",
+    "original": "assets/laptop-vs-tablet.webp",
+    "description": "A bright two-column device comparison with a large laptop and overlapping desktop windows on the left, and a stylus-operated tablet on the right. Colored branching lines connect cooling, operating-system, accessories, and workflow notes. A lower icon row maps each device to common uses.",
+    "prompt": "Create a polished landscape infographic titled “Laptop vs. Tablet: Which Device Fits Your Lifestyle?” on a clean white background. Place a large blue-violet illustrated laptop at left with visible coding, design, and video-editing windows, and a large drawing tablet held by hands at right with a stylus and expressive paint strokes. Use cyan-to-violet lines for the laptop and magenta-to-orange lines for the tablet, branching toward concise feature callouts. Explain desktop software and multitasking, cooling and sustained workloads, keyboard and ports, touch-first interaction, drawing mobility, and optional accessory costs. Add a lower row of small people-and-tool icons for long typing, programming, full desktop workflows, sketching, handheld use, and travel. Keep headings large and dark navy; align related notes symmetrically and use thin connector lines with generous white space. Frame claims as typical tendencies with device-specific exceptions, and avoid implying every laptop has a fan or every tablet follows the same operating-system model.",
+    "promptStatus": "Reconstructed from the supplied artwork; not a recovered original prompt.",
+    "decisions": [
+      "Large device illustrations anchor the comparison.",
+      "Branching lines connect each claim to the relevant device.",
+      "Use-case icons support a task-based decision."
+    ],
+    "critique": "The original generalizes cooling, software, and accessory requirements across entire device categories. Hybrid devices and model-specific exceptions need acknowledgment."
+  },
+  {
+    "id": "phone-privacy",
+    "title": "Your Phone Knows More",
+    "category": "Infographics",
+    "src": "assets/phone-privacy.webp",
+    "thumbnail": "assets/phone-privacy-thumb.webp",
+    "original": "assets/phone-privacy.webp",
+    "description": "A central smartphone connects direct data collection on the left to inferred personal profiles on the right. Blue solid lines represent location, microphone, metadata, and sensor inputs; purple dotted networks lead to behavioral insights. A three-part privacy audit spans the bottom.",
+    "prompt": "Produce a wide educational infographic titled “Your Phone Knows More About You Than You Think”. Use a white-to-icy-blue background, dark navy headings, cyan accents for directly collected information, and lavender accents for inferred insights. Center a large unbranded smartphone. On its left, arrange a clearly labeled list of possible data inputs: location, app activity, photo metadata, device diagnostics, and sensors, illustrated with simple outlined icons and solid cyan paths entering the phone. On its right, show a human profile silhouette surrounded by dotted purple connections and small behavior, health, commerce, and routine symbols. Explain the difference between collected data and statistical inference without implying every app has unrestricted access. Include a compact data-category table and a bottom “Quick Privacy Audit” with three practical checks: permissions and location, advertising preferences, and unused applications. Use concise text, an accessible reading order, and consistent icon geometry. Add sources and qualify all percentages, sensitive-inference claims, and operating-system instructions before publication.",
+    "promptStatus": "Reconstructed from the supplied artwork; not a recovered original prompt.",
+    "decisions": [
+      "The phone creates one clear visual focal point.",
+      "Solid and dotted paths distinguish collection from inference.",
+      "A bottom checklist moves the topic toward practical action."
+    ],
+    "critique": "The original includes an uncited tracking percentage and broad claims about sensitive inference. Permissions and available controls vary by operating system, app, and jurisdiction."
+  },
+  {
+    "id": "idea-to-viral-reel",
+    "title": "From Idea to Viral Reel",
+    "category": "Infographics",
+    "src": "assets/idea-to-viral-reel.webp",
+    "thumbnail": "assets/idea-to-viral-reel-thumb.webp",
+    "original": "assets/idea-to-viral-reel.webp",
+    "description": "A ten-step horizontal process map is divided into creator strategy and platform algorithm phases. Illustrated cards cover concept, hook, script, filming, editing, posting, audience testing, engagement, recommendations, and possible virality. A large multicolor arrow links the phases.",
+    "prompt": "Design a landscape process infographic titled “From Idea to Viral Reel: What Happens Behind the Scenes?” Divide the page into two phases: creator strategy, covering steps one through six, and platform distribution, covering steps seven through ten. Build a strong horizontal arrow through the center with small numbered connection points; alternate illustrated white cards above and below it. Include idea and audience need, opening hook, scripting, shooting, retention-focused editing, posting, initial test audience, engagement and retention signals, broader recommendations, and potential virality. Use friendly outlined illustrations of a brain and lightbulb, a phone, a script and stopwatch, a presenter, an editing timeline, hashtags, audience profiles, reaction symbols, and a rising graph. Shift the palette gradually from orange and coral to teal, blue, and violet as the process moves from human creation to distribution. Keep each caption short, emphasize iteration, and visibly state that virality is never guaranteed. Avoid presenting speculative algorithm mechanics or hashtag counts as universal rules.",
+    "promptStatus": "Reconstructed from the supplied artwork; not a recovered original prompt.",
+    "decisions": [
+      "The central arrow gives a long workflow an obvious direction.",
+      "Alternating cards prevent a single crowded text row.",
+      "Color progression marks the shift from creation to distribution."
+    ],
+    "critique": "The source repeats a phrase in step one and makes specific claims about hashtags and algorithms without references. A real workflow is iterative, whereas this illustration is linear."
+  },
+  {
+    "id": "world-without-internet",
+    "title": "A World Without the Internet",
+    "category": "Infographics",
+    "src": "assets/world-without-internet.webp",
+    "thumbnail": "assets/world-without-internet-thumb.webp",
+    "original": "assets/world-without-internet.webp",
+    "description": "A six-column day-in-the-life scenario moves through morning, commute, college and work, afternoon, evening, and night. Phone failures, printed papers, cash, offline study, family board games, and stress charts visualize the effects of losing connectivity. The artwork uses muted peach, mint, yellow, and violet.",
+    "prompt": "Create a wide editorial infographic titled “Imagine Waking Up to a World Without the Internet”. Structure the page as six adjacent chapters of a single day: morning, commute, college and work, afternoon, evening, and night. Give each chapter a colored arrow-shaped header, a simple time-of-day icon, two illustrated situations, and a concise consequence caption. Show unavailable news feeds leading to printed newspapers, commuters adapting without online media, students using physical books when cloud tools fail, digital payment and delivery disruption, a family replacing streaming with board games, and a quieter bedtime. Use warm paper-white, coral, teal, mustard, lavender, and mint with friendly hand-drawn editorial illustrations, thin dark outlines, and a bold condensed headline. Distinguish a temporary network outage scenario from a claim about all offline life. Include small clearly sourced charts only where evidence has been supplied; do not invent hospital costs or mental-health statistics. Maintain consistent panels, readable labels, and a clear morning-to-night reading flow.",
+    "promptStatus": "Reconstructed from the supplied artwork; not a recovered original prompt.",
+    "decisions": [
+      "A familiar daily routine makes a large systemic idea approachable.",
+      "Six colored chapter headers guide left-to-right reading.",
+      "Human scenes balance infrastructure effects with everyday experience."
+    ],
+    "critique": "The original contains malformed small labels and uncited hospital-cost and mental-health figures. Its “before internet” labels are ambiguous, and a total outage differs from choosing a digital break."
+  },
+  {
+    "id": "fake-news",
+    "title": "Fake News: Can You Spot It?",
+    "category": "Infographics",
+    "src": "assets/fake-news.webp",
+    "thumbnail": "assets/fake-news-thumb.webp",
+    "original": "assets/fake-news.webp",
+    "description": "A white media-literacy infographic opens with three illustrated false-claim examples: a miracle water cure, a dubious official traffic announcement, and a shark in a city street. Below are credibility-check cards and a colored verification sequence labeled SIFT. The heading promises seven checks but only four numbered cards appear.",
+    "prompt": "Create a landscape media-literacy infographic titled “Fake News: Can You Spot It?” with a vivid magenta-to-orange headline, clean white background, pale blue framing, and small geometric corner details. Across the upper half, place three example story cards: an implausible miracle-cure water bottle, a suspicious government traffic announcement, and a manipulated shark-on-a-city-street image. Mark each with a red flag and a short explanation of the warning sign. In the lower half, build a compact credibility checklist covering source and date, reading beyond headlines, evidence and corroboration, manipulated media, and emotional framing. Place an adjacent verification workflow in large colored tiles with simple stop-sign, search-window, and source-link icons. Use the complete four-part SIFT sequence—Stop, Investigate the source, Find better coverage, Trace claims to the original context—and make the number of listed checks match the heading. Use friendly editorial vector illustrations, strong navy typography, generous spacing, and plainly labeled fictional examples.",
+    "promptStatus": "Reconstructed from the supplied artwork; not a recovered original prompt.",
+    "decisions": [
+      "Concrete example headlines make abstract warning signs recognizable.",
+      "Red flags create a consistent visual cue for suspicion.",
+      "A lower action sequence turns awareness into a repeatable habit."
+    ],
+    "critique": "The original says “7 quick credibility checks” but shows four numbered cards, and its SIFT diagram has only three tiles. The reconstructed prompt explicitly corrects these consistency issues."
+  },
+  {
+    "id": "apple-the-fall",
+    "title": "The Apple: Anticipation",
+    "category": "AI images",
+    "src": "assets/apple-the-fall.webp",
+    "original": "assets/apple-the-fall.webp",
+    "description": "A portrait-format photorealistic scene of a young adult seated under an apple tree in a sunlit meadow. The person looks upward toward a red apple suspended beneath the branches with a slight vertical motion trace. Dark knitwear, loose grey jeans, and pale trainers contrast with warm grass and distant hazy hills.",
+    "prompt": "Generate a photorealistic vertical editorial photograph in approximately a 3:4 aspect ratio. A young adult with tousled dark hair sits on the ground with their back against a large textured apple-tree trunk on the left. They wear an oversized charcoal sweater, loose grey-blue jeans, and off-white trainers; their knees are comfortably bent and both hands rest naturally. The head tilts upward and the eyes follow one red apple falling through the open space above the face. Place the apple well clear of the body, with a subtle downward motion trace while preserving its recognizable shape. Heavy branches and green leaves frame the upper edge, with a few apples still attached. Beyond the tree, show a quiet meadow and softly layered blue-grey hills. Use warm late-afternoon sunlight from the right, gentle dappled shadows, restrained film grain, realistic skin, distinct bark, and soft atmospheric depth. Keep the mood contemplative and curious, like the moment just before an idea arrives. Avoid text, logos, excessive glow, or exaggerated facial expression.",
+    "promptStatus": "Reconstructed from the supplied artwork; not a recovered original prompt.",
+    "decisions": [
+      "The trunk anchors the left edge and frames the seated subject.",
+      "The falling apple creates a clear upward eyeline and suspended moment.",
+      "Warm backlight and hazy hills establish a quiet pastoral mood."
+    ],
+    "critique": "The suspended apple and vertical trace read as a stylized freeze-frame. It is an AI-created conceptual scene, not evidence of a historical event or a portrait of a verified person."
+  },
+  {
+    "id": "apple-the-bite",
+    "title": "The Apple: Resolution",
+    "category": "AI images",
+    "src": "assets/apple-the-bite.webp",
+    "original": "assets/apple-the-bite.webp",
+    "description": "A matching portrait scene under an apple tree, with a seated young adult bringing a bitten red apple toward their mouth. The same dark sweater, relaxed grey jeans, pale trainers, sunlit meadow, and distant hills create continuity with the anticipation image.",
+    "prompt": "Create a photorealistic vertical companion image to a pastoral apple-tree scene. Maintain the same young adult with tousled dark hair, oversized charcoal knit sweater, loose grey-blue jeans, and pale trainers, seated against the thick apple-tree trunk on the left. Keep the same camera height, three-quarter full-body framing, branch canopy, grassy meadow, distant softly hazed hills, and warm late-afternoon light. Change the action so the person looks downward and brings a red apple with a visible fresh bite toward their mouth in one hand. The other hand rests loosely over a bent knee. Preserve natural fingers, comfortable posture, believable cloth folds, textured bark, and dappled leaf shadows. Frame the upper half with green leaves and a few attached apples, and keep enough open sky for calm breathing space. Treat this as the quiet resolution of a two-image visual story: anticipation becomes an ordinary sensory moment. Use gentle photographic contrast, earthy greens, warm highlights, and realistic depth of field. Add no captions, graphic overlays, or artificial lens effects.",
+    "promptStatus": "Reconstructed from the supplied artwork; not a recovered original prompt.",
+    "decisions": [
+      "Matching wardrobe and landscape connect the two scenes.",
+      "The change in gaze completes a small visual narrative.",
+      "The bitten apple moves attention from open sky to the hand and face."
+    ],
+    "critique": "The two supplied files establish visual similarity, but they do not prove the same seed, reference, model, or editing process was used. Identity and fine-detail continuity remain approximate."
+  },
+  {
+    "id": "nepal-floods-preview",
+    "title": "Nepal Floods: A Disaster That Came Without Warning",
+    "category": "Articles",
+    "src": "assets/nepal-floods-preview.webp",
+    "original": "assets/nepal-floods-coursework.pages",
+    "description": "The first-page preview of a newspaper-style article with the masthead “TODAY’S NEWS”, the date 2 September 2026, and footer credit “Diksha Singh”. A large flood-rescue illustration is explicitly captioned “AI Generated”. The visible article discusses a Himalayan ice-and-rock collapse and flood response. This is displayed as supplied coursework, not verified news reporting.",
+    "prompt": "Write and lay out an educational simulated news article titled “Nepal Floods: A Disaster That Came Without Warning”. Use a restrained newspaper design with an “International News” eyebrow, date line, oversized dark-grey “TODAY’S NEWS” masthead, thin horizontal rules, a strong serif article headline, and a large landscape image beneath it. Draft a clear lead explaining an imagined Himalayan ice-and-rock collapse, rapid downstream flooding, damaged roads and bridges, and rescue challenges. Follow with a short section titled “How did it happen?” written in accessible language, and a narrow right-hand sidebar about rescue access. Keep a calm, factual editorial tone while clearly labeling the entire exercise as a fictional or unverified coursework simulation. For the hero image, depict a muddy mountain valley and damaged bridge with rescue workers helping a resident, under overcast light; visibly caption the illustration “AI Generated”. Preserve the author credit supplied by the student, use readable body text and generous margins, and include source notes if any real event claims are introduced. Do not invent verified reporting, quotations, casualty figures, or institutional sources.",
+    "promptStatus": "Reconstructed from the document preview and extracted document text; not a recovered original prompt.",
+    "decisions": [
+      "A newspaper masthead signals the editorial format.",
+      "The large rescue image establishes scale before the explanatory text.",
+      "A narrow sidebar separates rescue context from the main article."
+    ],
+    "critique": "The built-in preview shows only the first page; the original Apple Pages document and extracted article text are retained. Embedded media includes a catastrophe infographic with uncited casualty and damage figures and a source photo with no established provenance. The event narrative and numbers must not be presented as verified reporting.",
+    "author": "Diksha Singh",
+    "documentDate": "2 September 2026",
+    "notice": "Supplied coursework / unverified news simulation",
+    "textSource": "assets/nepal-floods-extracted.txt",
+    "sourceLink": "https://notebook.google.com/notebook/ac7bf9cb-c5d4-4dd0-a99e-dc916a1c2df5/artifact/5ea4daf3-b742-41ac-9049-7bba195a4f87",
+    "body": [
+      {
+        "heading": "Opening report",
+        "text": "Kathmandu, September 2, 2026: Nepal has been hit by severe floods that have caused heavy loss of life and property. The sudden floods damaged homes, roads, bridges and other important infrastructure. Rescue teams are working to find missing people and help those who have been affected.\n\nThe floods became especially dangerous after a sudden collapse of ice, rocks and a glacier in the Himalayan region sent a huge amount of water and debris into the river. The fast-moving water carried mud, rocks and other material downstream, giving people very little time to escape."
+      },
+      {
+        "heading": "How did it happen?",
+        "text": "The disaster started in the high Himalayan region. A large amount of ice and rock suddenly fell into a river system, causing the water level to rise quickly. The steep mountains made the water move at a very high speed towards the lower areas.\n\nThis turned the event into a flash flood, which is much more sudden and difficult to predict than a normal flood."
+      },
+      {
+        "heading": "Why was the damage so serious?",
+        "text": "Nepal has many steep mountains and narrow valleys. When a large amount of water enters these valleys suddenly, it can move very quickly and destroy everything in its path.\n\nThe floods damaged roads and bridges and affected electricity and hydropower projects. In some areas, rescue teams have also faced difficulties because roads were damaged and some communities became difficult to reach."
+      },
+      {
+        "heading": "Is climate change connected?",
+        "text": "Scientists have warned that the Himalayan region is becoming warmer. Rising temperatures can affect glaciers and make some mountain areas less stable. This can increase the risk of landslides, floods and other sudden disasters.\n\nThe Nepal floods have therefore raised concerns about the growing risks faced by communities living near the Himalayas."
+      },
+      {
+        "heading": "The road to recovery",
+        "text": "Even after the water started going down, the danger did not completely end. Rescue workers continued searching damaged areas and helping people who were trapped or had lost their homes. Authorities are also working to repair roads, restore electricity and provide basic support to affected families.\n\nThe Nepal floods show how quickly a natural event in the mountains can become a major disaster for people living far downstream. They also highlight the need for better warning systems, disaster preparation and climate awareness."
+      }
+    ],
+    "supportingMedia": [
+      {
+        "title": "Flood rescue illustration",
+        "src": "assets/nepal-rescue.webp",
+        "original": "assets/nepal-rescue.webp",
+        "provenance": "Embedded in the Pages document; the document labels this illustration “AI Generated”.",
+        "description": "A muddy Himalayan valley with a damaged bridge, rescue personnel, and a resident being helped across debris beneath steep cloud-covered slopes.",
+        "prompt": "Create a photorealistic editorial illustration in a landscape 3:2 frame. Show a Himalayan mountain village after a severe flood, with brown turbulent water, a damaged concrete bridge, and tangled logs and rocks. In the foreground, uniformed rescue personnel carefully assist a resident in patterned clothing along a muddy path. Continue a line of workers toward the right background to create depth. Place misty green slopes and modest hillside buildings under soft overcast daylight. Use subdued earth tones and believable mud, fabric, and water texture. Avoid sensational gore and keep the human interaction respectful. Label the result AI Generated and present it only as a conceptual disaster illustration, never as documentary evidence."
+      },
+      {
+        "title": "Valley flood reference image",
+        "src": "assets/nepal-valley-reference.webp",
+        "original": "assets/nepal-valley-reference.webp",
+        "provenance": "Embedded source image. The file does not establish photographer, location, date, license, or whether AI was involved.",
+        "description": "A narrow portrait image looks down a steep wooded river valley, showing muddy water, a large dust or spray cloud, hillside roads, and clustered metal-roofed buildings.",
+        "prompt": "Hypothetical visual recreation only: compose a vertical elevated view down a steep forested mountain valley. A pale muddy river runs from the upper left toward the lower center, with an expanding brown cloud of spray or debris in the distance. Show a winding road on one slope, dense dark green vegetation, and clusters of low buildings with red and blue metal roofs along the river. Use the compressed detail and uneven contrast of a handheld long-distance news image. Do not use this reconstruction to assert that the supplied reference was AI generated, or to claim a verified event, place, date, or photographer."
+      },
+      {
+        "title": "Glacial catastrophe infographic",
+        "src": "assets/nepal-glacial-infographic.webp",
+        "original": "assets/nepal-glacial-infographic.webp",
+        "provenance": "Embedded infographic with a visible “AI Gemini Notebook” mark; its disaster figures are unverified in the supplied files.",
+        "description": "A light-blue educational graphic headed “Nepal 2026: The Anatomy of a Glacial Catastrophe”. A large illustrated glacier and debris-filled river connect grouped panels about claimed casualties, infrastructure damage, regional risks, agriculture, and recovery.",
+        "prompt": "Design a wide educational disaster-process infographic on a pale ice-blue background. Use a flowing illustrated river as the main compositional line: begin at a faceted Himalayan glacier on the upper left, then carry water, rocks, wood, and damaged small structures diagonally toward the lower right. Arrange bold dark headings and flat outlined icons around the river for scale, infrastructure, agriculture, regional risk, and recovery. Use red, orange, green, and blue capsules to organize any supplied statistics, with readable numerals and concise notes. Add mountain-lake, bridge, power-line, paddy-field, satellite, globe, and evidence-identification symbols. Clearly label the piece as an illustrative scenario. Include no casualty, damage, speed, distance, or risk figure without an identified source and date, and distinguish verified data from hypothetical design placeholders."
+      }
+    ]
+  }
+]
