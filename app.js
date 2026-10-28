@@ -1,4 +1,6 @@
+import { createStudioSound } from './soundscape.js?v=life-20261028';
 const $ = (s) => document.querySelector(s);
+const studioSound = createStudioSound();
 const categories = ['Infographics','AI images','Podcasts','Explainer films','AI songs','Articles'];
 const descriptions = {
   All:'Twenty-seven experiments in making with AI. Open a piece to see the finished work and a carefully reconstructed creative prompt.',
@@ -27,39 +29,51 @@ function updateCount(){const count=works.length ? [...visited].filter(id=>works.
 function markViewed(id){visited.add(id);try{localStorage.setItem('making-room-visited',JSON.stringify([...visited]));}catch{}updateCount();}
 let toastTimer;
 function toast(message){$('#toast').textContent=message;$('#toast').classList.add('visible');clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('#toast').classList.remove('visible'),2200);}
-let audioContext, lastHoverSound=0;
-function sound(kind='open') {
-  if(!soundOn)return;
-  try {
-    audioContext ||= new (window.AudioContext||window.webkitAudioContext)();
-    if(audioContext.state==='suspended')audioContext.resume();
-    const now=audioContext.currentTime;
-    if(kind==='hover' && now-lastHoverSound<.18)return;
-    if(kind==='hover')lastHoverSound=now;
-    const g=audioContext.createGain(),osc=audioContext.createOscillator();
-    g.connect(audioContext.destination);osc.connect(g);
-    osc.type='sine';const freq=kind==='close'?280:kind==='hover'?570:kind==='copy'?760:420;
-    osc.frequency.setValueAtTime(freq,now);osc.frequency.exponentialRampToValueAtTime(freq*(kind==='close'?.6:1.5),now+.14);
-    g.gain.setValueAtTime(.0001,now);g.gain.exponentialRampToValueAtTime(kind==='hover'?.008:.035,now+.01);g.gain.exponentialRampToValueAtTime(.0001,now+.2);
-    osc.start(now);osc.stop(now+.22);
-    if(kind!=='hover'){
-      const length=Math.floor(audioContext.sampleRate*.08),buffer=audioContext.createBuffer(1,length,audioContext.sampleRate),channel=buffer.getChannelData(0);
-      for(let i=0;i<length;i++)channel[i]=(Math.random()*2-1)*(1-i/length)**3;
-      const noise=audioContext.createBufferSource(),filter=audioContext.createBiquadFilter(),ng=audioContext.createGain();noise.buffer=buffer;filter.type='lowpass';filter.frequency.value=900;ng.gain.value=.025;noise.connect(filter);filter.connect(ng);ng.connect(audioContext.destination);noise.start(now);
-    }
-  }catch{soundOn=false;$('#sound').setAttribute('aria-pressed','false');$('.sound-label').textContent='Sound off';}
+let closing=false;
+const canAnimate=()=>!reducedMotion&&motionOn;
+function sound(kind='open',category){studioSound.play(kind,category);}
+function syncActivity(){
+  const mediaPlaying=[...content.querySelectorAll('audio,video')].some(m=>!m.paused&&!m.ended);
+  studioSound.setMediaPlaying(mediaPlaying);
+  room?.setActivity?.({overlayOpen:dialog.open,mediaPlaying});
+  content.querySelectorAll('.asset-view').forEach(figure=>{
+    const media=figure.querySelector('audio,video');
+    figure.classList.toggle('is-playing',Boolean(media&&!media.paused&&!media.ended));
+  });
 }
-function animateContent(){if(window.gsap&&!reducedMotion){gsap.from(content.children,{y:12,opacity:0,duration:.35,clearProps:'all'});}}
-function openDialog(context){$('#dialog-context').textContent=context;if(!dialog.open){lastFocus=document.activeElement;dialog.showModal();sound('open');}$('#tooltip').classList.remove('visible');content.scrollTop=0;requestAnimationFrame(()=>{const heading=$('#dialog-title');if(heading){heading.tabIndex=-1;heading.focus({preventScroll:true});}});}
-function stopMedia(){content.querySelectorAll('audio,video').forEach(e=>e.pause());}
-function closeDialog(){stopMedia();dialog.close();currentWork=null;history.replaceState(null,'',location.pathname+location.search);sound('close');if(lastFocus?.isConnected)lastFocus.focus();}
+function animateContent(){
+  if(!window.gsap||!canAnimate())return;
+  const surface=content.firstElementChild;
+  if(!surface)return;
+  gsap.fromTo(surface,{opacity:.45,y:8},{opacity:1,y:0,duration:.28,ease:'power3.out',clearProps:'all'});
+  const cards=[...content.querySelectorAll('.work-card')].slice(0,9);
+  if(cards.length)gsap.fromTo(cards,{opacity:0,y:18},{opacity:1,y:0,duration:.4,stagger:{amount:.12},ease:'power3.out',clearProps:'all'});
+  const asset=content.querySelector('.detail>.asset-view');
+  if(asset)gsap.fromTo(asset,{opacity:.6,scale:.985},{opacity:1,scale:1,duration:.42,ease:'power3.out',clearProps:'all'});
+}
+function openDialog(context){
+  $('#dialog-context').textContent=context;
+  if(!dialog.open){
+    lastFocus=document.activeElement;dialog.showModal();sound('open',context);
+    if(window.gsap&&canAnimate())gsap.fromTo(dialog,{opacity:0,y:24,scale:.97},{opacity:1,y:0,scale:1,duration:.4,ease:'power3.out',clearProps:'all'});
+  }
+  syncActivity();$('#tooltip').classList.remove('visible');content.scrollTop=0;
+  requestAnimationFrame(()=>{const heading=$('#dialog-title');if(heading){heading.tabIndex=-1;heading.focus({preventScroll:true});}});
+}
+function stopMedia(){content.querySelectorAll('audio,video').forEach(e=>e.pause());studioSound.setMediaPlaying(false);syncActivity();}
+function closeDialog(){
+  if(!dialog.open||closing)return;closing=true;stopMedia();sound('close');
+  const category=currentWork?.category||activeCategory;
+  const finish=()=>{dialog.close();currentWork=null;closing=false;history.replaceState(null,'',location.pathname+location.search);syncActivity();room?.pulse?.(category);if(window.gsap)gsap.set(dialog,{clearProps:'all'});if(lastFocus?.isConnected)lastFocus.focus();};
+  if(window.gsap&&canAnimate())gsap.to(dialog,{opacity:0,y:14,scale:.99,duration:.18,ease:'power2.in',onComplete:finish});else finish();
+}
 $('#close').onclick=closeDialog;
 dialog.addEventListener('cancel',e=>{e.preventDefault();closeDialog();});
 dialog.addEventListener('click',e=>{if(e.target===dialog){const b=dialog.getBoundingClientRect();if(e.clientX<b.left||e.clientX>b.right||e.clientY<b.top||e.clientY>b.bottom)closeDialog();}});
 function setHash(hash){history.replaceState(null,'',hash);}
 function categoryCount(category){return works.filter(w=>w.category===category).length;}
-function renderMenu(){stopMedia();$('#back').hidden=true;content.innerHTML=`<div class="menu-page"><div><h2 id="dialog-title">A little curiosity.<br>A lot of making.</h2><p class="menu-copy">A collection of images, ideas, voices, and stories made with AI. Pick a shelf, or take the whole tour.</p><p class="menu-note">${works.length} works across six creative formats.<br>Each exhibit pairs the finished asset with a transparent prompt reconstruction.</p><button class="primary" data-filter="All">Browse work <span aria-hidden="true">↗</span></button></div><div class="menu-links">${categories.map(c=>`<button data-filter="${esc(c)}">${esc(c)}<small>${categoryCount(c)} works ↗</small></button>`).join('')}<button data-process>Behind the process<small>Read ↗</small></button></div></div>`;openDialog('Explore the studio');animateContent();}
-function audioArt(song=false,seed=0){return `<div class="audio-art${song?' song':''}" aria-hidden="true">${Array.from({length:43},(_,i)=>`<i style="height:${12+Math.abs(Math.sin(i*2.1+seed)*Math.cos(i*.37+seed))*85}px"></i>`).join('')}</div>`;}
+function renderMenu(){stopMedia();$('#back').hidden=true;content.innerHTML=`<div class="menu-page"><div><h2 id="dialog-title">A little curiosity.<br>A lot of making.</h2><p class="menu-copy">A collection of images, ideas, voices, and stories made with AI. Pick a shelf, or take the whole tour.</p><p class="menu-note">${works.length} works across six creative formats.<br>Each exhibit pairs the finished asset with a transparent prompt reconstruction.</p><button class="primary" data-filter="All">Browse work <span aria-hidden="true">↗</span></button><div class="menu-preferences"><button data-toggle-motion aria-pressed="${motionOn}" ${reducedMotion?'disabled':''}>${reducedMotion?'Reduced motion enabled':'Room motion '+(motionOn?'on':'off')}</button></div></div><div class="menu-links">${categories.map(c=>`<button data-filter="${esc(c)}">${esc(c)}<small>${categoryCount(c)} works ↗</small></button>`).join('')}<button data-process>Behind the process<small>Read ↗</small></button></div></div>`;openDialog('Explore the studio');animateContent();}
+function audioArt(song=false,seed=0){return `<div class="audio-art${song?' song':''}" aria-hidden="true">${Array.from({length:43},(_,i)=>`<i style="--bar:${i};height:${12+Math.abs(Math.sin(i*2.1+seed)*Math.cos(i*.37+seed))*85}px"></i>`).join('')}</div>`;}
 function card(w,index){const img=w.thumbnail||w.poster||w.src;const visual=w.category==='Podcasts'?audioArt(false,index):w.category==='AI songs'?audioArt(true):`<img src="${esc(img)}" alt="${esc(w.title)}" loading="lazy" decoding="async" width="500" height="300">`;return `<button class="work-card" data-work="${esc(w.id)}" aria-label="Open ${esc(w.title)}"><div class="card-image ${w.category==='AI images'?'portrait':w.category==='Articles'?'article':w.category==='Explainer films'?'film':''}">${visual}${w.category==='Explainer films'?'<span class="card-play" aria-hidden="true">▷</span>':''}</div><div class="card-meta"><span class="card-category">${esc(w.category)}${w.duration?' / '+esc(w.duration):''}</span><span class="card-view" aria-hidden="true">↗</span></div><h3>${esc(w.title)}</h3></button>`;}
 function showCollection(category='All') {
   if(!works.length){toast('The collection is still loading. Please try again in a moment.');return;}
@@ -89,14 +103,16 @@ function showProcess(){
   openDialog('The creative process');setHash('#process');animateContent();
 }
 content.addEventListener('click',async e=>{
-  const b=e.target.closest('button');if(!b)return;
-  if(b.hasAttribute('data-filter')){sound();showCollection(b.dataset.filter);}
-  else if(b.dataset.work){sound();showWork(b.dataset.work);}
+  const b=e.target.closest('button');if(!b||closing)return;
+  if(b.hasAttribute('data-toggle-motion')){$('#motion').click();b.textContent='Room motion '+(motionOn?'on':'off');b.setAttribute('aria-pressed',motionOn);}
+  else if(b.hasAttribute('data-filter')){sound('select',b.dataset.filter);showCollection(b.dataset.filter);}
+  else if(b.dataset.work){const w=works.find(w=>w.id===b.dataset.work);sound('select',w?.category);showWork(b.dataset.work);}
   else if(b.hasAttribute('data-process'))showProcess();
   else if(b.dataset.prev||b.dataset.next){sound();showWork(b.dataset.prev||b.dataset.next);}
   else if(b.dataset.copy){const w=works.find(x=>x.id===b.dataset.copy);try{await navigator.clipboard.writeText(w.prompt);b.textContent='Copied';sound('copy');setTimeout(()=>b.textContent='Copy prompt',1800);}catch{toast('Select the prompt text and copy it from your browser.');}}
 });
-content.addEventListener('play',e=>{content.querySelectorAll('audio,video').forEach(x=>{if(x!==e.target)x.pause();});},true);
+content.addEventListener('play',e=>{content.querySelectorAll('audio,video').forEach(x=>{if(x!==e.target)x.pause();});syncActivity();},true);
+content.addEventListener('pause',syncActivity,true);content.addEventListener('ended',syncActivity,true);
 $('#back').onclick=()=>showCollection(activeCategory);
 $('#browse').onclick=()=>showCollection('All');$('#menu').onclick=renderMenu;$('#process').onclick=showProcess;
 $('.identity').onclick=e=>{e.preventDefault();if(dialog.open)closeDialog();};
@@ -105,18 +121,25 @@ window.addEventListener('resize',()=>requestAnimationFrame(updateHints));
 $('.skip-link').onclick=e=>{e.preventDefault();showCollection('All');};
 $('#hints').onclick=()=>{updateHints();const on=$('#hints').getAttribute('aria-pressed')!=='true';$('#hints').setAttribute('aria-pressed',on);$('#hint-layer').hidden=!on;sound('hover');};
 $('#hint-layer').addEventListener('click',e=>{const b=e.target.closest('button');if(b)b.dataset.category==='Process'?showProcess():showCollection(b.dataset.category);});
-$('#sound').onclick=()=>{soundOn=!soundOn;$('#sound').setAttribute('aria-pressed',soundOn);$('#sound').setAttribute('aria-label',soundOn?'Sound on. Turn sound off':'Sound off. Turn sound on');$('.sound-label').textContent=soundOn?'Sound on':'Sound off';sound('copy');if(!soundOn&&audioContext)audioContext.suspend();};
-$('#light').onclick=()=>{evening=!evening;room?.setLighting(evening?'night':'day');$('#light').innerHTML=evening?'Evening <span aria-hidden="true">☾</span>':'Afternoon <span aria-hidden="true">☼</span>';$('#light').setAttribute('aria-label',`${evening?'Evening':'Afternoon'} light. Switch to ${evening?'afternoon':'evening'}`);sound('hover');};
-$('#motion').onclick=()=>{motionOn=!motionOn;room?.setMotion(motionOn);$('#motion').textContent=`Motion ${motionOn?'on':'off'}`;$('#motion').setAttribute('aria-pressed',motionOn);};
+$('#sound').onclick=async()=>{
+  const requested=!soundOn;
+  soundOn=await studioSound.setEnabled(requested);
+  $('#sound').setAttribute('aria-pressed',soundOn);$('#sound').setAttribute('aria-label',soundOn?'Sound on. Turn sound off':'Sound off. Turn sound on');$('.sound-label').textContent=soundOn?'Sound on':'Sound off';document.body.dataset.sound=soundOn?'on':'off';
+  if(soundOn){studioSound.setEnvironment(evening?'night':'day');sound('enable');room?.pulse?.();}else if(requested)toast('Sound is unavailable in this browser.');
+};
+$('#light').onclick=()=>{evening=!evening;room?.setLighting(evening?'night':'day');studioSound.setEnvironment(evening?'night':'day');$('#light').innerHTML=evening?'Evening <span aria-hidden="true">☾</span>':'Afternoon <span aria-hidden="true">☼</span>';$('#light').setAttribute('aria-label',`${evening?'Evening':'Afternoon'} light. Switch to ${evening?'afternoon':'evening'}`);sound('environment');};
+$('#motion').onclick=()=>{motionOn=!motionOn;room?.setMotion(motionOn);document.body.dataset.motion=motionOn?'on':'off';$('#motion').textContent=`Motion ${motionOn?'on':'off'}`;$('#motion').setAttribute('aria-pressed',motionOn);};
 if(reducedMotion){$('#motion').textContent='Motion reduced';$('#motion').setAttribute('aria-pressed','false');$('#motion').disabled=true;}
+document.body.dataset.motion=motionOn?'on':'off';document.body.dataset.sound='off';
 function route(){const hash=decodeURIComponent(location.hash);if(hash.startsWith('#work/'))showWork(hash.slice(6));else if(hash.startsWith('#collection/')){const c=hash.slice(12);showCollection(['All',...categories].includes(c)?c:'All');}else if(hash==='#process')showProcess();}
 async function initialize(){
   try{const responses=await Promise.all(['visual-data.json','media-data.json'].map(f=>fetch(f)));if(responses.some(r=>!r.ok))throw Error('Missing catalogue');const [v,m]=await Promise.all(responses.map(r=>r.json()));works=[...v,...m,...songs];updateCount();route();}
   catch(e){$('#room-status').hidden=false;$('#room-status').classList.add('error');$('#room-status').innerHTML='The collection could not load. <button onclick="location.reload()">Reload the studio</button>';console.error('Catalogue:',e);}
-  try{const {createRoom}=await import('./scene.js');room=await createRoom({canvas:$('#room'),reducedMotion,onSelect:category=>{sound();category==='Process'?showProcess():showCollection(category);},onHover:(category,x,y)=>{const t=$('#tooltip');if(category&&!dialog.open){t.textContent=category==='Process'?'Behind the process':`Explore ${category.toLowerCase()} ↗`;t.style.left=`${Math.min(x+15,innerWidth-200)}px`;t.style.top=`${Math.max(20,y-40)}px`;t.classList.add('visible');sound('hover');}else t.classList.remove('visible');},onReady:()=>{$('#room-status').hidden=true;}});$('#room-status').hidden=true;if(evening)room.setLighting('night');}
+  try{const {createRoom}=await import('./scene.js?v=life-20261028');room=await createRoom({canvas:$('#room'),reducedMotion,onSelect:category=>{sound('select',category);category==='Process'?showProcess():showCollection(category);},onHover:(category,x,y)=>{const t=$('#tooltip');if(category&&!dialog.open){t.textContent=category==='Process'?'Behind the process':`Explore ${category.toLowerCase()} ↗`;t.style.left=`${Math.min(x+15,innerWidth-200)}px`;t.style.top=`${Math.max(20,y-40)}px`;t.classList.add('visible');sound('hover',category);}else t.classList.remove('visible');},onReady:()=>{$('#room-status').hidden=true;}});$('#room-status').hidden=true;if(evening)room.setLighting('night');syncActivity();}
   catch(e){$('#room-status').hidden=false;$('#room-status').classList.add('error');$('#room-status').textContent='The 3D room is unavailable on this device. Browse work to explore the complete collection.';console.error('Room:',e);}
   if(window.gsap&&!reducedMotion){gsap.timeline({defaults:{ease:'power2.out'}}).from('.welcome',{opacity:0,y:20,duration:.9}).from('.topbar',{opacity:0,y:-10,duration:.6},'<.2').from('.discovery,.room-options',{opacity:0,duration:.6},'<.2');}
 }
 window.addEventListener('hashchange',route);
-window.addEventListener('pagehide',()=>{room?.dispose();if(audioContext)audioContext.close();window.gsap?.globalTimeline.clear();},{once:true});
+window.addEventListener('pagehide',()=>{room?.dispose();studioSound.dispose();window.gsap?.globalTimeline.clear();},{once:true});
+Object.defineProperty(window,'studioDiagnostics',{configurable:true,value:()=>({scene:room?.getDiagnostics?.()||null,sound:studioSound.getDiagnostics(),overlayOpen:dialog.open,motionOn,reducedMotion,works:works.length})});
 initialize();

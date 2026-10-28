@@ -6,7 +6,7 @@ import { RoundedBoxGeometry } from './vendor/RoundedBoxGeometry.js';
 export async function createRoom({ canvas, onSelect = () => {}, onHover = () => {}, onReady = () => {}, reducedMotion = false }) {
   const scene = new THREE.Scene();
   const warmWall = new THREE.Color('#4a4032');
-  scene.background = warmWall;
+  scene.background = warmWall.clone();
   const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: false, powerPreference: 'high-performance' });
   renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.75));
   renderer.shadowMap.enabled = true;
@@ -28,6 +28,8 @@ export async function createRoom({ canvas, onSelect = () => {}, onHover = () => 
   const allTextures = [];
   const allGeometries = new Set();
   const allMaterials = new Set();
+  const livingLeaves = [];
+  const reels = [];
   const geomCache = new Map();
   const matCache = new Map();
   let motion = !reducedMotion;
@@ -45,6 +47,19 @@ export async function createRoom({ canvas, onSelect = () => {}, onHover = () => 
   let aspect = 1.7;
   let intro = motion ? 0 : 1;
   let lighting = 'day';
+  let lightingMix = 0;
+  let ambientTime = 0;
+  let totalFrames = 0;
+  let overlayOpen = false;
+  let mediaPlaying = false;
+  let pendingHoverCheck = true;
+  let lastHoverCheck = -Infinity;
+  let lastShadowUpdate = -Infinity;
+  let shadowDirty = false;
+  let burstCursor = 0;
+  let activeBursts = 0;
+  const smallDevice = matchMedia('(max-width: 760px), (pointer: coarse)').matches;
+  const modestGPU = smallDevice || (navigator.hardwareConcurrency && navigator.hardwareConcurrency < 5);
   const cameraTarget = new THREE.Vector3(0, 3.3, 0);
   const cameraBase = new THREE.Vector3(0, 5.55, 17.6);
   let seed = 284731;
@@ -248,6 +263,7 @@ export async function createRoom({ canvas, onSelect = () => {}, onHover = () => 
     const x = 1.65 + (i - 1.5) * .035;
     tube([[x, 3.63, -.04], [x - .08, 3.96 + i * .06, -.02], [x - .27 + i * .12, 4.22 + i * .06, -.01]], .008, twig, shelf);
     const l = sphere(.10, material('#a38d55', .92), x - .22 + i * .10, 4.16 + i * .06, -.02, shelf, 12); l.scale.set(.4, 1.9, .17); l.rotation.z = -.5 + i * .3;
+    livingLeaves.push({ object: l, z: l.rotation.z, y: l.rotation.y, phase: i * 1.8, amplitude: .025 });
   }
 
   // Moon lamp: a quiet focal point on the lowest tower.
@@ -278,6 +294,7 @@ export async function createRoom({ canvas, onSelect = () => {}, onHover = () => 
       const t = k / 6, x = origin + Math.sin(t * 3.1) * .22 + (k % 2 ? .09 : -.06), y = .24 - t * length;
       const leaf = sphere(.13 + rand() * .03, leafMats[(k + j) % leafMats.length], x, y, .23, pot, 12);
       leaf.scale.set(.60, 1.1, .18); leaf.rotation.z = (k % 2 ? -.65 : .65); leaf.rotation.y = (rand() - .5) * .8;
+      livingLeaves.push({ object: leaf, z: leaf.rotation.z, y: leaf.rotation.y, phase: j * .6 + t * 2.7, amplitude: .025 + t * .065 });
     }
   }
   const abstractArt = canvasTexture(420, 560, (ctx, w, h) => {
@@ -367,9 +384,10 @@ export async function createRoom({ canvas, onSelect = () => {}, onHover = () => 
   const lens = cylinder(.145, .17, .25, brass, .32, .35, .29, projector); lens.rotation.x = Math.PI / 2;
   const glass = cylinder(.125, .125, .026, material('#455b55', .12, .35), .32, .35, .43, projector); glass.rotation.x = Math.PI / 2;
   for (const [x, y, r] of [[-.24, .76, .28], [.28, .80, .25]]) {
-    torus(r, .025, material('#9da293', .4, .5), x, y, .02, projector);
-    cylinder(.05, .05, .07, brass, x, y, .025, projector).rotation.x = Math.PI / 2;
-    for (let i = 0; i < 5; i++) { const a = i * Math.PI * 2 / 5; const spoke = box(r * .85, .035, .035, material('#9da293', .4, .5), x + Math.cos(a) * r * .48, y + Math.sin(a) * r * .48, .02, projector, .008); spoke.rotation.z = a; }
+    const reel = group(x, y, .02, projector); reels.push(reel);
+    torus(r, .025, material('#9da293', .4, .5), 0, 0, 0, reel);
+    cylinder(.05, .05, .07, brass, 0, 0, .005, reel).rotation.x = Math.PI / 2;
+    for (let i = 0; i < 5; i++) { const a = i * Math.PI * 2 / 5; const spoke = box(r * .85, .035, .035, material('#9da293', .4, .5), Math.cos(a) * r * .48, Math.sin(a) * r * .48, 0, reel, .008); spoke.rotation.z = a; }
   }
   for (let i = 0; i < 5; i++) box(.12, .012, .01, ink, -.15, .18 + i * .044, .274, projector, .002);
   plaque('EXPLAINER FILMS', 1.02, 0, -.055, .45, projector); hot(projector, 'Explainer films');
@@ -383,10 +401,13 @@ export async function createRoom({ canvas, onSelect = () => {}, onHover = () => 
   });
   const sleeve = box(.74, .79, .045, material('#ae7361'), -.16, .41, -.07, music, .005); sleeve.rotation.z = -.06;
   const sleeveFace = artPlane(.74, .79, sleeveTexture, -.16, .41, -.042, music); sleeveFace.rotation.z = -.06;
-  const disc = cylinder(.38, .38, .026, material('#252721', .32), .20, .44, .035, music, 56); disc.rotation.x = Math.PI / 2;
-  for (const r of [.22, .26, .30, .34]) torus(r, .0025, material('#47483c', .47), .20, .44, .051, music);
-  cylinder(.105, .105, .029, material('#b99d57'), .20, .44, .055, music).rotation.x = Math.PI / 2;
-  cylinder(.014, .014, .034, ink, .20, .44, .073, music).rotation.x = Math.PI / 2;
+  const record = group(.20, .44, .035, music);
+  const disc = cylinder(.38, .38, .026, material('#252721', .32), 0, 0, 0, record, 56); disc.rotation.x = Math.PI / 2;
+  for (const r of [.22, .26, .30, .34]) torus(r, .0025, material('#47483c', .47), 0, 0, .016, record);
+  cylinder(.105, .105, .029, material('#b99d57'), 0, 0, .020, record).rotation.x = Math.PI / 2;
+  // A printed label mark makes the slow record rotation perceptible.
+  box(.014, .056, .002, cream, .032, .038, .037, record, .002);
+  cylinder(.014, .014, .034, ink, 0, 0, .038, record).rotation.x = Math.PI / 2;
   const hp = group(.03, .39, .35, music); hp.rotation.z = .14;
   const band = torus(.31, .038, material('#453e30', .51), 0, .25, 0, hp, Math.PI); band.rotation.z = 0;
   box(.14, .28, .14, material('#373a31', .54), -.30, .22, .015, hp, .05);
@@ -424,7 +445,7 @@ export async function createRoom({ canvas, onSelect = () => {}, onHover = () => 
   cylinder(.03, .04, .15, brass, 0, .11, 0, globe);
   const globeTilt = group(0, .49, 0, globe); globeTilt.rotation.z = -.25;
   torus(.365, .015, brass, 0, 0, 0, globeTilt).rotation.y = .38;
-  sphere(.32, texturedMaterial(globeTexture, '#ffffff', .71), 0, 0, 0, globeTilt, 40);
+  const globeBall = sphere(.32, texturedMaterial(globeTexture, '#ffffff', .71), 0, 0, 0, globeTilt, 40);
 
   // Chessboard: ceramic pieces sitting in the highest open bay.
   const chess = group(2.68, 4.74, -.01, shelf);
@@ -487,6 +508,158 @@ export async function createRoom({ canvas, onSelect = () => {}, onHover = () => 
   const aoMat = new THREE.MeshBasicMaterial({map:aoTexture,transparent:true,depthWrite:false,opacity:.6});allMaterials.add(aoMat);
   const ao = mesh(new THREE.PlaneGeometry(6.6,2.5),aoMat);ao.rotation.x=-Math.PI/2;ao.position.set(2.7,-.018,-.03);ao.castShadow=false;ao.receiveShadow=false;
 
+  // Air is a real volume in front of and between the objects. One GPU draw call
+  // carries both sunlit dust and the slower, brighter evening fireflies.
+  const dustCount = modestGPU ? 112 : 252;
+  const fireflyCount = modestGPU ? 14 : 26;
+  const particleCount = dustCount + fireflyCount;
+  const particlePositions = new Float32Array(particleCount * 3);
+  const particleSeeds = new Float32Array(particleCount * 4);
+  const particleSizes = new Float32Array(particleCount);
+  for (let i = 0; i < particleCount; i++) {
+    const firefly = i >= dustCount;
+    particlePositions[i * 3] = -6.9 + rand() * 13.4;
+    particlePositions[i * 3 + 1] = .32 + rand() * 7.1;
+    particlePositions[i * 3 + 2] = .45 + rand() * 5.1;
+    particleSeeds.set([rand() * Math.PI * 2, .65 + rand() * 1.3, rand() * Math.PI * 2, firefly ? 1 : 0], i * 4);
+    particleSizes[i] = firefly ? .038 + rand() * .024 : .013 + rand() * .022;
+  }
+  const particleGeometry = new THREE.BufferGeometry(); allGeometries.add(particleGeometry);
+  particleGeometry.setAttribute('position', new THREE.BufferAttribute(particlePositions, 3));
+  particleGeometry.setAttribute('aSeed', new THREE.BufferAttribute(particleSeeds, 4));
+  particleGeometry.setAttribute('aSize', new THREE.BufferAttribute(particleSizes, 1));
+  const pointFragment = `
+    varying vec3 vTint;
+    varying float vAlpha;
+    void main() {
+      vec2 p = gl_PointCoord * 2.0 - 1.0;
+      float r = dot(p, p);
+      if (r > 1.0) discard;
+      float halo = exp(-r * 5.5) * (1.0 - smoothstep(.55, 1.0, r));
+      float core = exp(-r * 32.0) * .28;
+      gl_FragColor = vec4(vTint, (halo + core) * vAlpha);
+      #include <tonemapping_fragment>
+      #include <colorspace_fragment>
+    }
+  `;
+  const particleMaterial = new THREE.ShaderMaterial({
+    transparent: true, depthWrite: false, blending: THREE.AdditiveBlending,
+    uniforms: {
+      uTime: { value: 0 }, uNight: { value: 0 }, uScale: { value: 120 }, uReveal: { value: 0 },
+      uWarm: { value: new THREE.Color('#ffedbb') }, uCool: { value: new THREE.Color('#d7e4ac') },
+    },
+    vertexShader: `
+      attribute vec4 aSeed;
+      attribute float aSize;
+      uniform float uTime, uNight, uScale, uReveal;
+      uniform vec3 uWarm, uCool;
+      varying vec3 vTint;
+      varying float vAlpha;
+      void main() {
+        float fly = aSeed.w;
+        float t = uTime * (.13 + fly * .27) * aSeed.y;
+        vec3 p = position;
+        p.x += sin(t + aSeed.x) * (.18 + fly * .23) + sin(t * .41 + aSeed.z) * .12;
+        p.y += sin(t * .72 + aSeed.z) * (.24 + fly * .25);
+        p.z += cos(t * .62 + aSeed.x) * (.19 + fly * .11);
+        float shimmer = .68 + .32 * sin(uTime * (.8 + fly * .6) + aSeed.x * 2.0);
+        float glow = mix(.42 - uNight * .21, uNight * .94, fly);
+        vAlpha = glow * shimmer * uReveal;
+        vTint = mix(uWarm, uCool, uNight * fly);
+        gl_PointSize = clamp(aSize * uScale * (1.0 + fly * .8) * (1.0 + p.z * .055), 1.4, 17.0);
+        gl_Position = projectionMatrix * modelViewMatrix * vec4(p, 1.0);
+      }
+    `,
+    fragmentShader: pointFragment,
+  }); allMaterials.add(particleMaterial);
+  const particles = new THREE.Points(particleGeometry, particleMaterial);
+  particles.frustumCulled = false; particles.renderOrder = 3; particles.visible = motion; room.add(particles);
+
+  // Two restrained shafts catch the suspended dust; the room geometry still
+  // occludes them naturally. The very soft edges never read as graphic stripes.
+  const shaftMaterial = new THREE.ShaderMaterial({
+    transparent: true, depthWrite: false, side: THREE.DoubleSide, blending: THREE.AdditiveBlending,
+    uniforms: { uNight: { value: 0 }, uTime: { value: 0 }, uTint: { value: new THREE.Color('#f9d78f') } },
+    vertexShader: `varying vec2 vUv; void main() { vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }`,
+    fragmentShader: `
+      varying vec2 vUv;
+      uniform float uNight, uTime;
+      uniform vec3 uTint;
+      void main() {
+        float across = pow(max(0.0, sin(vUv.x * 3.14159265)), 2.5);
+        float ends = smoothstep(0.0, .22, vUv.y) * (1.0 - smoothstep(.62, 1.0, vUv.y));
+        float breath = .94 + .06 * sin(uTime * .23);
+        gl_FragColor = vec4(uTint, across * ends * .028 * (1.0 - uNight * .94) * breath);
+        #include <tonemapping_fragment>
+        #include <colorspace_fragment>
+      }
+    `,
+  }); allMaterials.add(shaftMaterial);
+  for (let i = 0; i < 2; i++) {
+    const shaftGeometry = new THREE.PlaneGeometry(i ? .63 : 1.36, 12.6); allGeometries.add(shaftGeometry);
+    const shaft = new THREE.Mesh(shaftGeometry, shaftMaterial);
+    shaft.position.set(-2.9 + i * 2.1, 4.7, 2.6 - i * .7); shaft.rotation.z = -.59;
+    shaft.renderOrder = 1; room.add(shaft);
+  }
+
+  // Selection sends a small wake through that object's air, never across the UI.
+  // Fixed buffers are reused; repeated exploration cannot accumulate particles.
+  const burstCapacity = modestGPU ? 48 : 90;
+  const burstPositions = new Float32Array(burstCapacity * 3);
+  const burstAlphas = new Float32Array(burstCapacity);
+  const burstSizes = new Float32Array(burstCapacity);
+  const burstState = Array.from({ length: burstCapacity }, () => ({ age: 2, life: 1, x: 0, y: 0, z: 0, vx: 0, vy: 0, vz: 0, phase: 0 }));
+  const burstGeometry = new THREE.BufferGeometry(); allGeometries.add(burstGeometry);
+  burstGeometry.setAttribute('position', new THREE.BufferAttribute(burstPositions, 3).setUsage(THREE.DynamicDrawUsage));
+  burstGeometry.setAttribute('aAlpha', new THREE.BufferAttribute(burstAlphas, 1).setUsage(THREE.DynamicDrawUsage));
+  burstGeometry.setAttribute('aSize', new THREE.BufferAttribute(burstSizes, 1).setUsage(THREE.DynamicDrawUsage));
+  const burstMaterial = new THREE.ShaderMaterial({
+    transparent: true, depthWrite: false, blending: THREE.AdditiveBlending,
+    uniforms: { uScale: { value: 120 }, uTint: { value: new THREE.Color('#ffe8b0') } },
+    vertexShader: `
+      attribute float aAlpha, aSize;
+      uniform float uScale;
+      uniform vec3 uTint;
+      varying vec3 vTint;
+      varying float vAlpha;
+      void main() {
+        vTint = uTint; vAlpha = aAlpha;
+        gl_PointSize = clamp(aSize * uScale, 1.0, 16.0);
+        gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+      }
+    `,
+    fragmentShader: pointFragment,
+  }); allMaterials.add(burstMaterial);
+  const bursts = new THREE.Points(burstGeometry, burstMaterial); bursts.frustumCulled = false; bursts.visible = false; bursts.renderOrder = 4; room.add(bursts);
+  const burstOrigin = new THREE.Vector3();
+  function pulse(category, strength = 1) {
+    if (!motion || !isVisible || disposed) return;
+    const target = interactive.find(g => g.userData.category === category) || hover;
+    if (target) { scene.updateMatrixWorld(true); new THREE.Box3().setFromObject(target).getCenter(burstOrigin); burstOrigin.z += .45; }
+    else burstOrigin.set(2.7, 3.6, .8);
+    const count = Math.round((modestGPU ? 20 : 30) * strength);
+    for (let j = 0; j < count; j++) {
+      const index = burstCursor++ % burstCapacity;
+      const p = burstState[index], angle = rand() * Math.PI * 2, speed = (.10 + rand() * .32) * strength;
+      Object.assign(p, { age: 0, life: .85 + rand() * .85, x: burstOrigin.x + (rand() - .5) * .17, y: burstOrigin.y + (rand() - .5) * .17, z: burstOrigin.z + rand() * .16, vx: Math.cos(angle) * speed, vy: Math.sin(angle) * speed + .16, vz: (rand() - .25) * .17, phase: rand() * 6.28 });
+      burstSizes[index] = .018 + rand() * .031;
+    }
+    bursts.visible = true; activeBursts = Math.min(burstCapacity, activeBursts + count); invalidate();
+  }
+
+  const daySunColor = new THREE.Color('#ffe1a0'), nightSunColor = new THREE.Color('#c9d3c4'), nightWallColor = new THREE.Color('#302e27');
+  function applyLighting(amount) {
+    sun.intensity = THREE.MathUtils.lerp(3.2, .65, amount); sun.color.copy(daySunColor).lerp(nightSunColor, amount);
+    hemi.intensity = THREE.MathUtils.lerp(1.30, .67, amount); fill.intensity = THREE.MathUtils.lerp(.52, .28, amount);
+    wallGlow.intensity = THREE.MathUtils.lerp(.65, 1.8, amount);
+    renderer.toneMappingExposure = THREE.MathUtils.lerp(1.22, 1.02, amount);
+    scene.background.copy(warmWall).lerp(nightWallColor, amount);
+    particleMaterial.uniforms.uNight.value = amount; shaftMaterial.uniforms.uNight.value = amount;
+    const breath = motion ? 1 + Math.sin(ambientTime * .72) * .035 + Math.sin(ambientTime * .23) * .018 : 1;
+    moonLight.intensity = THREE.MathUtils.lerp(.5, 2.8, amount) * breath;
+    moon.material.emissiveIntensity = THREE.MathUtils.lerp(.18, .80, amount) * breath;
+  }
+
   // Optional supplied studies. Texture failures intentionally leave the physical art in place.
   const textureLoader = new THREE.TextureLoader();
   const replaceStudy = (url, target) => textureLoader.load(url, t => {
@@ -504,17 +677,19 @@ export async function createRoom({ canvas, onSelect = () => {}, onHover = () => 
     renderer.setSize(width,height,false);
     if(aspect<.8)intro=1;
     const viewHeight=aspect<.8?Math.max(10.5,6.3/aspect):aspect<1.2?9.4:8.55;
+    const pointScale = height / viewHeight * renderer.getPixelRatio();
+    particleMaterial.uniforms.uScale.value = pointScale; burstMaterial.uniforms.uScale.value = pointScale;
     camera.top=viewHeight/2;camera.bottom=-viewHeight/2;camera.left=-viewHeight*aspect/2;camera.right=viewHeight*aspect/2;
     // Portrait uses a slightly elevated, whole-bookcase view. The HTML archive is the mobile navigation.
     if(aspect<.8){cameraTarget.set(2.68,3.10,0);cameraBase.set(2.68,5.65,18.2);}
     else if(aspect<1.2){cameraTarget.set(.5,3.25,0);cameraBase.set(.5,5.65,18.2);}
     else {cameraTarget.set(-.20,3.32,0);cameraBase.set(-.20,5.65,18.2);}
-    camera.position.copy(cameraBase);camera.lookAt(cameraTarget);camera.updateProjectionMatrix();invalidate();
+    camera.position.copy(cameraBase);camera.lookAt(cameraTarget);camera.updateProjectionMatrix();pendingHoverCheck=true;invalidate();
   }
   function invalidate(count=2){needFrames=Math.max(needFrames,count);if(!initializing&&!frame&&isVisible&&!disposed)frame=requestAnimationFrame(render);}
   function pointerMove(event){
     const rect=canvas.getBoundingClientRect();pointer.set(((event.clientX-rect.left)/rect.width)*2-1,-((event.clientY-rect.top)/rect.height)*2+1);
-    pointerTarget.set(pointer.x,pointer.y);pointerClient={x:event.clientX,y:event.clientY};invalidate();
+    pointerTarget.set(pointer.x,pointer.y);pointerClient={x:event.clientX,y:event.clientY};pendingHoverCheck=true;invalidate();
   }
   function clearPointer(){pointer.set(5,5);pointerTarget.set(0,0);if(hover){hover=null;onHover(null,pointerClient.x,pointerClient.y);canvas.style.cursor='';}invalidate();}
   function down(event){
@@ -529,13 +704,13 @@ export async function createRoom({ canvas, onSelect = () => {}, onHover = () => 
     wasDragged=Math.hypot(event.clientX-press.x,event.clientY-press.y)>8;
     if(wasDragged)return;
     pointerMove(event);const target=press.target || hitAtPointer();
-    if(target){lastActivation=performance.now();onSelect(target.userData.category);}
+    if(target){lastActivation=performance.now();pulse(target.userData.category);onSelect(target.userData.category);}
   }
   function click(event){
     // Some assistive/browser input dispatches click without a pointer sequence.
     if(wasDragged || performance.now()-lastActivation<400)return;
     pointerMove(event);const target=hitAtPointer();
-    if(target){lastActivation=performance.now();onSelect(target.userData.category);}
+    if(target){lastActivation=performance.now();pulse(target.userData.category);onSelect(target.userData.category);}
   }
   function hitAtPointer(){
     if(Math.abs(pointer.x)>1 || Math.abs(pointer.y)>1)return null;
@@ -550,32 +725,77 @@ export async function createRoom({ canvas, onSelect = () => {}, onHover = () => 
     }
     return next;
   }
-  function updateRaycast(){
+  function updateRaycast(time){
+    if(overlayOpen || !pendingHoverCheck || time-lastHoverCheck<65)return;
+    pendingHoverCheck=false;lastHoverCheck=time;
     const next=hitAtPointer();
-    if(next!==hover){hover=next;canvas.style.cursor=hover?'pointer':'';onHover(hover?hover.userData.category:null,pointerClient.x,pointerClient.y);}
+    if(next!==hover){hover=next;canvas.style.cursor=hover?'pointer':'';if(hover)pulse(hover.userData.category,.27);onHover(hover?hover.userData.category:null,pointerClient.x,pointerClient.y);}
   }
   function render(time){
     frame=0;if(disposed||!isVisible)return;
-    const dt=Math.min((time-lastTime)/1000,.05)||.016;lastTime=time;
+    // Draw at most 30fps (24 on touch/mobile). Ambient effects never require a
+    // 120Hz screen to redraw a mostly static collection of physical objects.
+    const interval=1000/(modestGPU?24:30);
+    if(lastTime && time-lastTime<interval-.5){frame=requestAnimationFrame(render);return;}
+    const dt=lastTime?Math.min((time-lastTime)/1000,.075):.016;lastTime=time;
+    const ambientActive=motion&&!overlayOpen&&!mediaPlaying;
     let changing=false;
     if(intro<1){intro=Math.min(1,intro+dt*.72);changing=true;}
     const eased=1-Math.pow(1-intro,4);
-    const targetX=motion&&aspect>1.15?pointerTarget.x*.26:0;
-    const targetY=motion&&aspect>1.15?pointerTarget.y*.16:0;
+    const targetX=ambientActive&&aspect>1.15?pointerTarget.x*.26:0;
+    const targetY=ambientActive&&aspect>1.15?pointerTarget.y*.16:0;
     pointerEase.x=THREE.MathUtils.damp(pointerEase.x,targetX,3.4,dt);pointerEase.y=THREE.MathUtils.damp(pointerEase.y,targetY,3.4,dt);
-    if(Math.abs(pointerEase.x-targetX)+Math.abs(pointerEase.y-targetY)>.0008)changing=true;
+    if(Math.abs(pointerEase.x-targetX)+Math.abs(pointerEase.y-targetY)>.0008){changing=true;pendingHoverCheck=true;}
     camera.position.set(cameraBase.x+pointerEase.x,cameraBase.y+pointerEase.y+(1-eased)*.5,cameraBase.z+(1-eased)*1.3);camera.lookAt(cameraTarget);
-    updateRaycast();
+    updateRaycast(time);
     for(const g of interactive){
       const target=hover===g?1:0;g.userData.hoverAmount=THREE.MathUtils.damp(g.userData.hoverAmount,target,10,dt);
       if(Math.abs(g.userData.hoverAmount-target)>.002)changing=true;
       const nextY=g.userData.baseY+(motion?.055:0)*g.userData.hoverAmount;
       const nextRotation=g.userData.baseRotation+(motion?.012:0)*g.userData.hoverAmount;
-      if(Math.abs(g.position.y-nextY)>.0001 || Math.abs(g.rotation.z-nextRotation)>.0001)renderer.shadowMap.needsUpdate=true;
+      if(Math.abs(g.position.y-nextY)>.0001 || Math.abs(g.rotation.z-nextRotation)>.0001)shadowDirty=true;
       g.position.y=nextY;g.rotation.z=nextRotation;
     }
-    renderer.render(scene,camera);needFrames=Math.max(0,needFrames-1);
-    if(changing||needFrames>0)frame=requestAnimationFrame(render);
+    if(ambientActive){
+      ambientTime+=dt;
+      particleMaterial.uniforms.uTime.value=ambientTime;
+      particleMaterial.uniforms.uReveal.value=Math.min(1,ambientTime*.8);
+      shaftMaterial.uniforms.uTime.value=ambientTime;
+      for(const leaf of livingLeaves){
+        leaf.object.rotation.z=leaf.z+Math.sin(ambientTime*.62+leaf.phase)*leaf.amplitude;
+        leaf.object.rotation.y=leaf.y+Math.sin(ambientTime*.44+leaf.phase+.8)*leaf.amplitude*.8;
+      }
+      const reelSpeed=.32+projector.userData.hoverAmount*.95;
+      for(let i=0;i<reels.length;i++)reels[i].rotation.z-=dt*reelSpeed*(i?.92:1);
+      record.rotation.z-=dt*(.20+music.userData.hoverAmount*.4);
+      globeBall.rotation.y+=dt*.09;
+      sheet.rotation.x=-.18+Math.sin(ambientTime*.57)*.019;
+    }
+    const desiredLight=lighting==='night'?1:0;
+    if(Math.abs(lightingMix-desiredLight)>.001){
+      lightingMix=motion?THREE.MathUtils.damp(lightingMix,desiredLight,4.1,dt):desiredLight;changing=true;
+    }else lightingMix=desiredLight;
+    applyLighting(lightingMix);
+    if(activeBursts&&ambientActive){
+      activeBursts=0;
+      for(let i=0;i<burstCapacity;i++){
+        const p=burstState[i];p.age+=dt;
+        if(p.age>=p.life){burstAlphas[i]=0;continue;}
+        activeBursts++;
+        const age=p.age, fade=1-age/p.life;
+        burstPositions[i*3]=p.x+p.vx*age+Math.sin(age*2.3+p.phase)*age*.035;
+        burstPositions[i*3+1]=p.y+p.vy*age+age*age*.035;
+        burstPositions[i*3+2]=p.z+p.vz*age;
+        burstAlphas[i]=Math.min(1,age*12)*fade*fade*.82;
+      }
+      burstGeometry.attributes.position.needsUpdate=true;burstGeometry.attributes.aAlpha.needsUpdate=true;burstGeometry.attributes.aSize.needsUpdate=true;
+      bursts.visible=activeBursts>0;
+    }
+    // Tiny internal motions reuse baked shadows. Only actual prop feedback
+    // updates the shadow map, at most eight times per second and once settled.
+    if(shadowDirty&&(time-lastShadowUpdate>125||!changing)){renderer.shadowMap.needsUpdate=true;shadowDirty=false;lastShadowUpdate=time;}
+    renderer.render(scene,camera);totalFrames++;needFrames=Math.max(0,needFrames-1);
+    if(ambientActive||changing||needFrames>0)frame=requestAnimationFrame(render);
   }
   function visibility(){isVisible=!document.hidden;if(isVisible){lastTime=0;invalidate();}else if(frame){cancelAnimationFrame(frame);frame=0;}}
   const observer=new ResizeObserver(fit);observer.observe(canvas);
@@ -592,9 +812,38 @@ export async function createRoom({ canvas, onSelect = () => {}, onHover = () => 
   return {
     setLighting(mode){
       lighting=mode==='night'?'night':'day';const night=lighting==='night';
-      sun.intensity=night?.65:3.2;sun.color.set(night?'#c9d3c4':'#ffe1a0');hemi.intensity=night?.67:1.30;fill.intensity=night?.28:.52;wallGlow.intensity=night?1.8:.65;moonLight.intensity=night?2.8:.5;moon.material.emissiveIntensity=night?.80:.18;renderer.toneMappingExposure=night?1.02:1.22;scene.background.set(night?'#302e27':'#4a4032');renderer.shadowMap.needsUpdate=true;invalidate();
+      if(!motion){lightingMix=night?1:0;applyLighting(lightingMix);}
+      renderer.shadowMap.needsUpdate=true;invalidate();
     },
-    setMotion(enabled){motion=Boolean(enabled)&&!reducedMotion;pointerTarget.set(0,0);invalidate();},
+    setMotion(enabled){
+      motion=Boolean(enabled)&&!reducedMotion;particles.visible=motion;pointerTarget.set(0,0);
+      if(!motion){
+        intro=1;pointerEase.set(0,0);activeBursts=0;bursts.visible=false;
+        for(const p of burstState)p.age=p.life;
+      }
+      lastTime=0;invalidate();
+    },
+    setActivity(activity={}){
+      if('overlayOpen' in activity)overlayOpen=Boolean(activity.overlayOpen);
+      if('mediaPlaying' in activity)mediaPlaying=Boolean(activity.mediaPlaying);
+      if(overlayOpen||mediaPlaying){
+        activeBursts=0;bursts.visible=false;for(const p of burstState)p.age=p.life;
+      }
+      if(overlayOpen){
+        clearPointer();pointerEase.set(0,0);intro=1;
+        for(const g of interactive){g.userData.hoverAmount=0;g.position.y=g.userData.baseY;g.rotation.z=g.userData.baseRotation;}
+        renderer.shadowMap.needsUpdate=true;
+      }
+      lastTime=0;invalidate();
+    },
+    pulse(category){pulse(category);},
+    getDiagnostics(){return {
+      particleCount:motion?particleCount:0,dustCount:motion?dustCount:0,fireflyCount:motion?fireflyCount:0,
+      activeBursts,ambientActive:motion&&isVisible&&!overlayOpen&&!mediaPlaying&&!disposed,
+      motion,reducedMotion,lighting,lightingMix:Number(lightingMix.toFixed(3)),overlayOpen,mediaPlaying,
+      frames:totalFrames,ambientTime:Number(ambientTime.toFixed(3)),frameCap:modestGPU?24:30,
+      drawCalls:renderer.info.render.calls,shadowAutoUpdate:renderer.shadowMap.autoUpdate,disposed,
+    };},
     getCategoryPositions(){
       scene.updateMatrixWorld(true);camera.updateMatrixWorld(true);const rect=canvas.getBoundingClientRect();const positions={};
       for(const g of interactive){const center=new THREE.Box3().setFromObject(g).getCenter(new THREE.Vector3()).project(camera);positions[g.userData.category]={x:(center.x*.5+.5)*rect.width,y:(-center.y*.5+.5)*rect.height};}

@@ -7,7 +7,7 @@
   <title>The Making Room | Diksha Singh</title>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23403628'/%3E%3Ctext x='32' y='45' text-anchor='middle' font-size='44' fill='%23e5c43d' font-family='Georgia'%3EM%3C/text%3E%3C/svg%3E">
   <link rel="preload" href="fonts/display.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css?v=life-20261028">
 </head>
 <body>
   <a class="skip-link" href="#browse">Skip the room and browse work</a>
@@ -17,7 +17,7 @@
     <header class="topbar">
       <a class="identity" href="#" aria-label="Diksha Singh, The Making Room. Return to room"><strong>Diksha Singh</strong><span>The Making Room</span></a>
       <nav aria-label="Studio controls">
-        <button class="round-control sound-control" id="sound" aria-label="Sound off. Turn sound on" aria-pressed="false"><span class="sound-icon" aria-hidden="true">♫</span><span class="sound-label">Sound off</span></button>
+        <button class="round-control sound-control" id="sound" title="Enable room ambience and object sounds" aria-label="Sound off. Turn sound on" aria-pressed="false"><span class="sound-meter" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span class="sound-label">Sound off</span></button>
         <button class="round-control" id="hints" aria-pressed="false">Hints</button>
         <button class="round-control" id="menu" aria-haspopup="dialog">Menu <span aria-hidden="true">+</span></button>
       </nav>
@@ -49,6 +49,6 @@
   <div id="toast" role="status" aria-live="polite"></div>
   <noscript><div class="noscript">This interactive exhibition needs JavaScript. Your supplied files are preserved in the downloadable portfolio package.</div></noscript>
   <script src="vendor/gsap.min.js" defer></script>
-  <script type="module" src="app.js"></script>
+  <script type="module" src="app.js?v=life-20261028"></script>
 </body>
 </html>
