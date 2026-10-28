@@ -1,4 +1,4 @@
-import { createStudioSound } from './soundscape.js?v=life-20261028';
+import { createStudioSound } from './soundscape.js?v=life-20261028-2';
 const $ = (s) => document.querySelector(s);
 const studioSound = createStudioSound();
 const categories = ['Infographics','AI images','Podcasts','Explainer films','AI songs','Articles'];
@@ -31,7 +31,8 @@ let toastTimer;
 function toast(message){$('#toast').textContent=message;$('#toast').classList.add('visible');clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('#toast').classList.remove('visible'),2200);}
 let closing=false;
 const canAnimate=()=>!reducedMotion&&motionOn;
-function sound(kind='open',category){studioSound.play(kind,category);}
+let lastSelectionSound=-Infinity;
+function sound(kind='open',category){if(kind==='select')lastSelectionSound=performance.now();if(kind==='open'&&performance.now()-lastSelectionSound<180)return;studioSound.play(kind,category);}
 function syncActivity(){
   const mediaPlaying=[...content.querySelectorAll('audio,video')].some(m=>!m.paused&&!m.ended);
   studioSound.setMediaPlaying(mediaPlaying);
@@ -135,11 +136,11 @@ function route(){const hash=decodeURIComponent(location.hash);if(hash.startsWith
 async function initialize(){
   try{const responses=await Promise.all(['visual-data.json','media-data.json'].map(f=>fetch(f)));if(responses.some(r=>!r.ok))throw Error('Missing catalogue');const [v,m]=await Promise.all(responses.map(r=>r.json()));works=[...v,...m,...songs];updateCount();route();}
   catch(e){$('#room-status').hidden=false;$('#room-status').classList.add('error');$('#room-status').innerHTML='The collection could not load. <button onclick="location.reload()">Reload the studio</button>';console.error('Catalogue:',e);}
-  try{const {createRoom}=await import('./scene.js?v=life-20261028');room=await createRoom({canvas:$('#room'),reducedMotion,onSelect:category=>{sound('select',category);category==='Process'?showProcess():showCollection(category);},onHover:(category,x,y)=>{const t=$('#tooltip');if(category&&!dialog.open){t.textContent=category==='Process'?'Behind the process':`Explore ${category.toLowerCase()} ↗`;t.style.left=`${Math.min(x+15,innerWidth-200)}px`;t.style.top=`${Math.max(20,y-40)}px`;t.classList.add('visible');sound('hover',category);}else t.classList.remove('visible');},onReady:()=>{$('#room-status').hidden=true;}});$('#room-status').hidden=true;if(evening)room.setLighting('night');syncActivity();}
+  try{const {createRoom}=await import('./scene.js?v=life-20261028-2');room=await createRoom({canvas:$('#room'),reducedMotion,onSelect:category=>{sound('select',category);category==='Process'?showProcess():showCollection(category);},onHover:(category,x,y)=>{const t=$('#tooltip');if(category&&!dialog.open){t.textContent=category==='Process'?'Behind the process':`Explore ${category.toLowerCase()} ↗`;t.style.left=`${Math.min(x+15,innerWidth-200)}px`;t.style.top=`${Math.max(20,y-40)}px`;t.classList.add('visible');sound('hover',category);}else t.classList.remove('visible');},onReady:()=>{$('#room-status').hidden=true;}});$('#room-status').hidden=true;if(evening)room.setLighting('night');syncActivity();}
   catch(e){$('#room-status').hidden=false;$('#room-status').classList.add('error');$('#room-status').textContent='The 3D room is unavailable on this device. Browse work to explore the complete collection.';console.error('Room:',e);}
   if(window.gsap&&!reducedMotion){gsap.timeline({defaults:{ease:'power2.out'}}).from('.welcome',{opacity:0,y:20,duration:.9}).from('.topbar',{opacity:0,y:-10,duration:.6},'<.2').from('.discovery,.room-options',{opacity:0,duration:.6},'<.2');}
 }
 window.addEventListener('hashchange',route);
-window.addEventListener('pagehide',()=>{room?.dispose();studioSound.dispose();window.gsap?.globalTimeline.clear();},{once:true});
+window.addEventListener('pagehide',event=>{if(event.persisted)return;room?.dispose();studioSound.dispose();window.gsap?.globalTimeline.clear();});
 Object.defineProperty(window,'studioDiagnostics',{configurable:true,value:()=>({scene:room?.getDiagnostics?.()||null,sound:studioSound.getDiagnostics(),overlayOpen:dialog.open,motionOn,reducedMotion,works:works.length})});
 initialize();
