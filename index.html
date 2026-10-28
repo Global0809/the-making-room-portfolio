@@ -7,7 +7,7 @@
   <title>The Making Room | Diksha Singh</title>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23403628'/%3E%3Ctext x='32' y='45' text-anchor='middle' font-size='44' fill='%23e5c43d' font-family='Georgia'%3EM%3C/text%3E%3C/svg%3E">
   <link rel="preload" href="fonts/display.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="style.css?v=life-20261028-2">
+  <link rel="stylesheet" href="style.css?v=spatial-20261028-1">
 </head>
 <body>
   <a class="skip-link" href="#browse">Skip the room and browse work</a>
@@ -28,6 +28,13 @@
       <p class="intro-copy">Every piece starts with a possibility. Explore the work, then uncover the prompts that could have made it.</p>
       <button class="primary" id="browse">Browse work <span aria-hidden="true">↗</span></button>
     </section>
+    <nav class="shelf-navigator" aria-label="Explore the studio in depth">
+      <button id="shelf-prev" class="shelf-arrow" aria-label="Preview previous shelf" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m14 6-6 6 6 6"/></svg></button>
+      <button id="shelf-focus" disabled>Explore the room <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></button>
+      <button id="shelf-next" class="shelf-arrow" aria-label="Preview next shelf" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m10 6 6 6-6 6"/></svg></button>
+      <button id="shelf-reset" class="shelf-arrow" aria-label="Return to the whole room" title="Whole room" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4H4v5m11-5h5v5M4 15v5h5m11-5v5h-5"/></svg></button>
+    </nav>
+    <p class="shelf-instruction" aria-live="polite" hidden></p>
     <div class="discovery"><span id="discovered">0 of 27 works explored</span><span class="separator" aria-hidden="true">/</span><button id="process">Behind the process</button></div>
     <div class="room-options"><button id="light" aria-label="Afternoon light. Switch to evening">Afternoon <span aria-hidden="true">☼</span></button><button id="motion" aria-pressed="true">Motion on</button></div>
     <div id="tooltip" role="status" aria-live="polite"></div>
@@ -49,6 +56,6 @@
   <div id="toast" role="status" aria-live="polite"></div>
   <noscript><div class="noscript">This interactive exhibition needs JavaScript. Your supplied files are preserved in the downloadable portfolio package.</div></noscript>
   <script src="vendor/gsap.min.js" defer></script>
-  <script type="module" src="app.js?v=life-20261028-2"></script>
+  <script type="module" src="app.js?v=spatial-20261028-1"></script>
 </body>
 </html>

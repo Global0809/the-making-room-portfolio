@@ -1,14 +1,17 @@
 import * as THREE from './vendor/three.module.js';
 import { RoundedBoxGeometry } from './vendor/RoundedBoxGeometry.js';
+import { createFlyingBooks } from './flying-books.js?v=spatial-20261028-1';
 
 // A small, hand-built studio. Nothing in this scene is a pre-rendered room image.
 // The archive remains available through the companion HTML controls.
-export async function createRoom({ canvas, onSelect = () => {}, onHover = () => {}, onReady = () => {}, reducedMotion = false }) {
+export async function createRoom({ canvas, onSelect = () => {}, onHover = () => {}, onReady = () => {}, onCameraChange = () => {}, reducedMotion = false }) {
   const scene = new THREE.Scene();
+  const smallDevice = matchMedia('(max-width: 760px), (pointer: coarse)').matches;
+  const modestGPU = smallDevice || (navigator.hardwareConcurrency && navigator.hardwareConcurrency < 5);
   const warmWall = new THREE.Color('#4a4032');
   scene.background = warmWall.clone();
-  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: false, powerPreference: 'high-performance' });
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.75));
+  const renderer = new THREE.WebGLRenderer({ canvas, antialias: !modestGPU, alpha: false, powerPreference: 'high-performance' });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, modestGPU ? 1.25 : 1.75));
   renderer.shadowMap.enabled = true;
   renderer.shadowMap.type = THREE.PCFSoftShadowMap;
   renderer.shadowMap.autoUpdate = false;
@@ -58,10 +61,17 @@ export async function createRoom({ canvas, onSelect = () => {}, onHover = () => 
   let shadowDirty = false;
   let burstCursor = 0;
   let activeBursts = 0;
-  const smallDevice = matchMedia('(max-width: 760px), (pointer: coarse)').matches;
-  const modestGPU = smallDevice || (navigator.hardwareConcurrency && navigator.hardwareConcurrency < 5);
   const cameraTarget = new THREE.Vector3(0, 3.3, 0);
   const cameraBase = new THREE.Vector3(0, 5.55, 17.6);
+  const focusOffset = new THREE.Vector2();
+  const focusTarget = new THREE.Vector2();
+  const dragOffset = new THREE.Vector2();
+  const lookTarget = new THREE.Vector3();
+  const bounds = new THREE.Box3();
+  const propCenter = new THREE.Vector3();
+  let focusedCategory = null;
+  let targetZoom = 1;
+  let lastCameraNotice = 0;
   let seed = 284731;
   const rand = () => { seed = (seed * 16807) % 2147483647; return (seed - 1) / 2147483646; };
   const yieldToBrowser = () => globalThis.scheduler?.yield
@@ -497,7 +507,7 @@ export async function createRoom({ canvas, onSelect = () => {}, onHover = () => 
 
   const hemi = new THREE.HemisphereLight('#ffebc4', '#514b3a', 1.30); scene.add(hemi);
   const sun = new THREE.DirectionalLight('#ffe1a0', 3.2); sun.position.set(-6.3, 10, 9); sun.target.position.set(1.0, 1.3, -.7); scene.add(sun, sun.target);
-  sun.castShadow = true; sun.shadow.mapSize.set(2048, 2048); sun.shadow.camera.left = -11; sun.shadow.camera.right = 11; sun.shadow.camera.top = 10; sun.shadow.camera.bottom = -6; sun.shadow.camera.near = .5; sun.shadow.camera.far = 30; sun.shadow.bias = -.00035; sun.shadow.normalBias = .025; sun.shadow.radius = 3;
+  sun.castShadow = true; sun.shadow.mapSize.set(modestGPU?1024:2048, modestGPU?1024:2048); sun.shadow.camera.left = -11; sun.shadow.camera.right = 11; sun.shadow.camera.top = 10; sun.shadow.camera.bottom = -6; sun.shadow.camera.near = .5; sun.shadow.camera.far = 30; sun.shadow.bias = -.00035; sun.shadow.normalBias = .025; sun.shadow.radius = 3;
   const fill = new THREE.DirectionalLight('#e8dabb', .52); fill.position.set(6, 4, 7); scene.add(fill);
   const wallGlow = new THREE.PointLight('#e9b767', .65, 12, 2); wallGlow.position.set(-4, 6, 4); scene.add(wallGlow);
 
@@ -672,40 +682,68 @@ export async function createRoom({ canvas, onSelect = () => {}, onHover = () => 
   replaceStudy(canvas.dataset.artwork || 'assets/apple-the-bite.webp',imageStudy);
   replaceStudy(canvas.dataset.infographic || 'assets/fake-news-thumb.webp',infographic);
 
+  const flyingBooks = createFlyingBooks({ THREE, parent: room, smallDevice: modestGPU, reducedMotion });
+
+  function frameCategory(category) {
+    const prop=interactive.find(o=>o.userData.category===category);
+    focusedCategory=prop?category:null;dragOffset.set(0,0);
+    if(prop){
+      scene.updateMatrixWorld(true);bounds.setFromObject(prop).getCenter(propCenter);
+      focusTarget.set(propCenter.x-cameraTarget.x,propCenter.y-cameraTarget.y+.18);
+      targetZoom=aspect<.8?2.05:aspect<1.2?1.65:1.6;
+    }else {focusTarget.set(0,0);targetZoom=1;}
+    if(!motion){focusOffset.copy(focusTarget);camera.zoom=targetZoom;}
+    pendingHoverCheck=true;invalidate();
+  }
+
   function fit() {
     const rect=canvas.getBoundingClientRect();const width=Math.max(1,rect.width);const height=Math.max(1,rect.height);aspect=width/height;
     renderer.setSize(width,height,false);
     if(aspect<.8)intro=1;
-    const viewHeight=aspect<.8?Math.max(10.5,6.3/aspect):aspect<1.2?9.4:8.55;
+    const viewHeight=aspect<.8?Math.max(10.5,5.8/aspect):aspect<1.2?9.4:8.55;
     const pointScale = height / viewHeight * renderer.getPixelRatio();
     particleMaterial.uniforms.uScale.value = pointScale; burstMaterial.uniforms.uScale.value = pointScale;
     camera.top=viewHeight/2;camera.bottom=-viewHeight/2;camera.left=-viewHeight*aspect/2;camera.right=viewHeight*aspect/2;
     // Portrait uses a slightly elevated, whole-bookcase view. The HTML archive is the mobile navigation.
-    if(aspect<.8){cameraTarget.set(2.68,3.10,0);cameraBase.set(2.68,5.65,18.2);}
+    if(aspect<.8){cameraTarget.set(2.68,1.85,0);cameraBase.set(2.68,4.40,18.2);}
     else if(aspect<1.2){cameraTarget.set(.5,3.25,0);cameraBase.set(.5,5.65,18.2);}
     else {cameraTarget.set(-.20,3.32,0);cameraBase.set(-.20,5.65,18.2);}
+    frameCategory(focusedCategory);
     camera.position.copy(cameraBase);camera.lookAt(cameraTarget);camera.updateProjectionMatrix();pendingHoverCheck=true;invalidate();
   }
   function invalidate(count=2){needFrames=Math.max(needFrames,count);if(!initializing&&!frame&&isVisible&&!disposed)frame=requestAnimationFrame(render);}
   function pointerMove(event){
     const rect=canvas.getBoundingClientRect();pointer.set(((event.clientX-rect.left)/rect.width)*2-1,-((event.clientY-rect.top)/rect.height)*2+1);
-    pointerTarget.set(pointer.x,pointer.y);pointerClient={x:event.clientX,y:event.clientY};pendingHoverCheck=true;invalidate();
+    pointerClient={x:event.clientX,y:event.clientY};
+    if(pointerDown&&event.pointerId===pointerDown.id){
+      const dx=event.clientX-pointerDown.x,dy=event.clientY-pointerDown.y;
+      pointerDown.distance=Math.max(pointerDown.distance,Math.hypot(dx,dy));
+      if(focusedCategory&&pointerDown.distance>8){
+        dragOffset.set(THREE.MathUtils.clamp(pointerDown.panX-dx/rect.width*2,-1.1,1.1),THREE.MathUtils.clamp(pointerDown.panY+dy/rect.height*1.4,-.7,.7));
+      }
+    }
+    if(event.pointerType!=='touch')pointerTarget.set(pointer.x,pointer.y);
+    pendingHoverCheck=event.pointerType!=='touch';invalidate();
   }
   function clearPointer(){pointer.set(5,5);pointerTarget.set(0,0);if(hover){hover=null;onHover(null,pointerClient.x,pointerClient.y);canvas.style.cursor='';}invalidate();}
   function down(event){
+    if(pointerDown||event.isPrimary===false||event.button>0)return;
     wasDragged=false;pointerMove(event);
     // Press activation must survive the gentle hover lift and camera parallax.
     // Those presentation changes can put a thin grille between rays on release.
     const target=hitAtPointer();
-    pointerDown={x:event.clientX,y:event.clientY,target};
+    pointerDown={id:event.pointerId,x:event.clientX,y:event.clientY,target,distance:0,panX:dragOffset.x,panY:dragOffset.y};
   }
   function up(event){
-    if(!pointerDown)return;const press=pointerDown;pointerDown=null;
-    wasDragged=Math.hypot(event.clientX-press.x,event.clientY-press.y)>8;
-    if(wasDragged)return;
+    if(!pointerDown||event.pointerId!==pointerDown.id)return;const press=pointerDown;pointerDown=null;
+    wasDragged=Math.max(press.distance,Math.hypot(event.clientX-press.x,event.clientY-press.y))>8;
+    if(event.pointerType==='touch')pointerTarget.set(0,0);
+    if(wasDragged){clearPointer();return;}
     pointerMove(event);const target=press.target || hitAtPointer();
     if(target){lastActivation=performance.now();pulse(target.userData.category);onSelect(target.userData.category);}
   }
+  function cancelPointer(){pointerDown=null;wasDragged=true;clearPointer();}
+  function leave(){if(pointerDown)cancelPointer();else clearPointer();}
   function click(event){
     // Some assistive/browser input dispatches click without a pointer sequence.
     if(wasDragged || performance.now()-lastActivation<400)return;
@@ -726,7 +764,7 @@ export async function createRoom({ canvas, onSelect = () => {}, onHover = () => 
     return next;
   }
   function updateRaycast(time){
-    if(overlayOpen || !pendingHoverCheck || time-lastHoverCheck<65)return;
+    if(smallDevice || overlayOpen || !pendingHoverCheck || time-lastHoverCheck<65)return;
     pendingHoverCheck=false;lastHoverCheck=time;
     const next=hitAtPointer();
     if(next!==hover){hover=next;canvas.style.cursor=hover?'pointer':'';if(hover)pulse(hover.userData.category,.27);onHover(hover?hover.userData.category:null,pointerClient.x,pointerClient.y);}
@@ -742,11 +780,20 @@ export async function createRoom({ canvas, onSelect = () => {}, onHover = () => 
     let changing=false;
     if(intro<1){intro=Math.min(1,intro+dt*.72);changing=true;}
     const eased=1-Math.pow(1-intro,4);
-    const targetX=ambientActive&&aspect>1.15?pointerTarget.x*.26:0;
-    const targetY=ambientActive&&aspect>1.15?pointerTarget.y*.16:0;
+    const targetX=ambientActive&&!smallDevice?pointerTarget.x*(focusedCategory?.36:.80):0;
+    const targetY=ambientActive&&!smallDevice?pointerTarget.y*(focusedCategory?.20:.34):0;
     pointerEase.x=THREE.MathUtils.damp(pointerEase.x,targetX,3.4,dt);pointerEase.y=THREE.MathUtils.damp(pointerEase.y,targetY,3.4,dt);
     if(Math.abs(pointerEase.x-targetX)+Math.abs(pointerEase.y-targetY)>.0008){changing=true;pendingHoverCheck=true;}
-    camera.position.set(cameraBase.x+pointerEase.x,cameraBase.y+pointerEase.y+(1-eased)*.5,cameraBase.z+(1-eased)*1.3);camera.lookAt(cameraTarget);
+    const response=motion?4.2:1000;
+    focusOffset.x=THREE.MathUtils.damp(focusOffset.x,focusTarget.x+dragOffset.x,response,dt);
+    focusOffset.y=THREE.MathUtils.damp(focusOffset.y,focusTarget.y+dragOffset.y,response,dt);
+    const zoom=THREE.MathUtils.damp(camera.zoom,targetZoom,response,dt);
+    const cameraMoving=Math.abs(zoom-targetZoom)+Math.abs(focusOffset.x-focusTarget.x-dragOffset.x)+Math.abs(focusOffset.y-focusTarget.y-dragOffset.y)>.0008;
+    if(cameraMoving){changing=true;pendingHoverCheck=true;}
+    camera.zoom=zoom;camera.updateProjectionMatrix();
+    camera.position.set(cameraBase.x+focusOffset.x+pointerEase.x,cameraBase.y+focusOffset.y+pointerEase.y+(1-eased)*.5,cameraBase.z+(1-eased)*1.3);
+    lookTarget.set(cameraTarget.x+focusOffset.x+pointerEase.x*.12,cameraTarget.y+focusOffset.y+pointerEase.y*.12,0);camera.lookAt(lookTarget);
+    if((cameraMoving||changing)&&time-lastCameraNotice>100){lastCameraNotice=time;onCameraChange();}
     updateRaycast(time);
     for(const g of interactive){
       const target=hover===g?1:0;g.userData.hoverAmount=THREE.MathUtils.damp(g.userData.hoverAmount,target,10,dt);
@@ -770,6 +817,7 @@ export async function createRoom({ canvas, onSelect = () => {}, onHover = () => 
       record.rotation.z-=dt*(.20+music.userData.hoverAmount*.4);
       globeBall.rotation.y+=dt*.09;
       sheet.rotation.x=-.18+Math.sin(ambientTime*.57)*.019;
+      flyingBooks.update(ambientTime,true);
     }
     const desiredLight=lighting==='night'?1:0;
     if(Math.abs(lightingMix-desiredLight)>.001){
@@ -799,7 +847,7 @@ export async function createRoom({ canvas, onSelect = () => {}, onHover = () => 
   }
   function visibility(){isVisible=!document.hidden;if(isVisible){lastTime=0;invalidate();}else if(frame){cancelAnimationFrame(frame);frame=0;}}
   const observer=new ResizeObserver(fit);observer.observe(canvas);
-  canvas.addEventListener('pointermove',pointerMove,{passive:true});canvas.addEventListener('pointerleave',clearPointer);canvas.addEventListener('pointerdown',down,{passive:true});canvas.addEventListener('pointerup',up,{passive:true});canvas.addEventListener('click',click);document.addEventListener('visibilitychange',visibility);
+  canvas.addEventListener('pointermove',pointerMove,{passive:true});canvas.addEventListener('pointerleave',leave);canvas.addEventListener('pointerdown',down,{passive:true});canvas.addEventListener('pointerup',up,{passive:true});canvas.addEventListener('pointercancel',cancelPointer);canvas.addEventListener('lostpointercapture',cancelPointer);canvas.addEventListener('click',click);document.addEventListener('visibilitychange',visibility);
   fit();
   // Let the native page stay interactive while the GPU prepares material programs.
   // Texture/resize callbacks can invalidate during this await without drawing early.
@@ -817,6 +865,7 @@ export async function createRoom({ canvas, onSelect = () => {}, onHover = () => 
     },
     setMotion(enabled){
       motion=Boolean(enabled)&&!reducedMotion;particles.visible=motion;pointerTarget.set(0,0);
+      flyingBooks.update(ambientTime,motion);
       if(!motion){
         intro=1;pointerEase.set(0,0);activeBursts=0;bursts.visible=false;
         for(const p of burstState)p.age=p.life;
@@ -843,15 +892,17 @@ export async function createRoom({ canvas, onSelect = () => {}, onHover = () => 
       motion,reducedMotion,lighting,lightingMix:Number(lightingMix.toFixed(3)),overlayOpen,mediaPlaying,
       frames:totalFrames,ambientTime:Number(ambientTime.toFixed(3)),frameCap:modestGPU?24:30,
       drawCalls:renderer.info.render.calls,shadowAutoUpdate:renderer.shadowMap.autoUpdate,disposed,
+      cameraZoom:Number(camera.zoom.toFixed(3)),focusedCategory,cameraOffset:[Number(focusOffset.x.toFixed(3)),Number(focusOffset.y.toFixed(3))],pixelRatio:renderer.getPixelRatio(),flyingBooks:flyingBooks.getDiagnostics(),
+      parallax:[Number(pointerEase.x.toFixed(3)),Number(pointerEase.y.toFixed(3))],
     };},
     getCategoryPositions(){
       scene.updateMatrixWorld(true);camera.updateMatrixWorld(true);const rect=canvas.getBoundingClientRect();const positions={};
       for(const g of interactive){const center=new THREE.Box3().setFromObject(g).getCenter(new THREE.Vector3()).project(camera);positions[g.userData.category]={x:(center.x*.5+.5)*rect.width,y:(-center.y*.5+.5)*rect.height};}
       return positions;
     },
-    focusCategory(category){const g=interactive.find(o=>o.userData.category===category);if(g){hover=g;onHover(category,window.innerWidth*.65,window.innerHeight*.5);invalidate();}},
+    focusCategory:frameCategory,
     dispose(){
-      disposed=true;if(frame)cancelAnimationFrame(frame);observer.disconnect();canvas.removeEventListener('pointermove',pointerMove);canvas.removeEventListener('pointerleave',clearPointer);canvas.removeEventListener('pointerdown',down);canvas.removeEventListener('pointerup',up);canvas.removeEventListener('click',click);document.removeEventListener('visibilitychange',visibility);
+      disposed=true;if(frame)cancelAnimationFrame(frame);observer.disconnect();canvas.removeEventListener('pointermove',pointerMove);canvas.removeEventListener('pointerleave',leave);canvas.removeEventListener('pointerdown',down);canvas.removeEventListener('pointerup',up);canvas.removeEventListener('pointercancel',cancelPointer);canvas.removeEventListener('lostpointercapture',cancelPointer);canvas.removeEventListener('click',click);document.removeEventListener('visibilitychange',visibility);flyingBooks.dispose();
       allGeometries.forEach(g=>g.dispose());allMaterials.forEach(m=>m.dispose());allTextures.forEach(t=>t.dispose());renderer.dispose();
     },
   };

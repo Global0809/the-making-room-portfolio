@@ -1,4 +1,5 @@
 import { createStudioSound } from './soundscape.js?v=life-20261028-2';
+import { createArchiveDepth } from './archive-depth.js?v=spatial-20261028-1';
 const $ = (s) => document.querySelector(s);
 const studioSound = createStudioSound();
 const categories = ['Infographics','AI images','Podcasts','Explainer films','AI songs','Articles'];
@@ -31,18 +32,38 @@ let toastTimer;
 function toast(message){$('#toast').textContent=message;$('#toast').classList.add('visible');clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('#toast').classList.remove('visible'),2200);}
 let closing=false;
 const canAnimate=()=>!reducedMotion&&motionOn;
+const archiveDepth=createArchiveDepth({container:content,canAnimate:()=>canAnimate()&&dialog.open&&!document.hidden&&![...content.querySelectorAll('audio,video')].some(m=>!m.paused&&!m.ended)});
+let roomIndex=-1;
+function setRoomView(index){
+  roomIndex=index;
+  const category=categories[roomIndex];
+  document.body.dataset.roomFocused=category?'true':'false';
+  room?.focusCategory?.(category);
+  for(const id of ['shelf-prev','shelf-next','shelf-reset'])$('#'+id).hidden=!category;
+  $('#shelf-focus').innerHTML=category?`${esc(category)} <span aria-hidden="true">↗</span>`:'Explore the room <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg>';
+  $('#shelf-focus').setAttribute('aria-label',category?`Open ${category} collection`:'Explore the room with shelf close-ups');
+  const instruction=$('.shelf-instruction');instruction.hidden=!category;instruction.textContent=category?'Arrows preview. The shelf name opens its work.':'';
+  if(!$('#hint-layer').hidden)updateHints();
+}
+$('#shelf-focus').onclick=()=>{if(roomIndex<0){setRoomView(0);sound('hover','Infographics');}else showCollection(categories[roomIndex]);};
+$('#shelf-prev').onclick=()=>{setRoomView((roomIndex-1+categories.length)%categories.length);sound('hover',categories[roomIndex]);};
+$('#shelf-next').onclick=()=>{setRoomView((roomIndex+1)%categories.length);sound('hover',categories[roomIndex]);};
+$('#shelf-reset').onclick=()=>{setRoomView(-1);$('#shelf-focus').focus();sound('close');};
+document.addEventListener('keydown',event=>{if(event.key==='Escape'&&!dialog.open&&roomIndex>=0){setRoomView(-1);$('#shelf-focus').focus();}});
 let lastSelectionSound=-Infinity;
 function sound(kind='open',category){if(kind==='select')lastSelectionSound=performance.now();if(kind==='open'&&performance.now()-lastSelectionSound<180)return;studioSound.play(kind,category);}
 function syncActivity(){
   const mediaPlaying=[...content.querySelectorAll('audio,video')].some(m=>!m.paused&&!m.ended);
   studioSound.setMediaPlaying(mediaPlaying);
   room?.setActivity?.({overlayOpen:dialog.open,mediaPlaying});
+  archiveDepth.refresh();
   content.querySelectorAll('.asset-view').forEach(figure=>{
     const media=figure.querySelector('audio,video');
     figure.classList.toggle('is-playing',Boolean(media&&!media.paused&&!media.ended));
   });
 }
 function animateContent(){
+  archiveDepth.refresh();
   if(!window.gsap||!canAnimate())return;
   const surface=content.firstElementChild;
   if(!surface)return;
@@ -61,11 +82,11 @@ function openDialog(context){
   syncActivity();$('#tooltip').classList.remove('visible');content.scrollTop=0;
   requestAnimationFrame(()=>{const heading=$('#dialog-title');if(heading){heading.tabIndex=-1;heading.focus({preventScroll:true});}});
 }
-function stopMedia(){content.querySelectorAll('audio,video').forEach(e=>e.pause());studioSound.setMediaPlaying(false);syncActivity();}
+function stopMedia(){archiveDepth.clear();content.querySelectorAll('audio,video').forEach(e=>e.pause());studioSound.setMediaPlaying(false);syncActivity();}
 function closeDialog(){
   if(!dialog.open||closing)return;closing=true;stopMedia();sound('close');
   const category=currentWork?.category||activeCategory;
-  const finish=()=>{dialog.close();currentWork=null;closing=false;history.replaceState(null,'',location.pathname+location.search);syncActivity();room?.pulse?.(category);if(window.gsap)gsap.set(dialog,{clearProps:'all'});if(lastFocus?.isConnected)lastFocus.focus();};
+  const finish=()=>{dialog.close();currentWork=null;closing=false;history.replaceState(null,'',location.pathname+location.search);syncActivity();room?.pulse?.(category);if(window.gsap)gsap.set(dialog,{clearProps:'all'});const focusable=lastFocus?.isConnected&&lastFocus.getClientRects().length&&getComputedStyle(lastFocus).visibility!=='hidden'&&!lastFocus.disabled;(focusable?lastFocus:$('#shelf-focus')).focus();};
   if(window.gsap&&canAnimate())gsap.to(dialog,{opacity:0,y:14,scale:.99,duration:.18,ease:'power2.in',onComplete:finish});else finish();
 }
 $('#close').onclick=closeDialog;
@@ -79,6 +100,7 @@ function card(w,index){const img=w.thumbnail||w.poster||w.src;const visual=w.cat
 function showCollection(category='All') {
   if(!works.length){toast('The collection is still loading. Please try again in a moment.');return;}
   stopMedia();currentWork=null;activeCategory=category;$('#back').hidden=true;
+  if(category!=='All')setRoomView(categories.indexOf(category));
   const filtered=category==='All'?works:works.filter(w=>w.category===category);
   content.innerHTML=`<section class="collection"><h2 id="dialog-title">${category==='All'?'The collected works.':esc(category)+'.'}</h2><p class="collection-intro">${esc(descriptions[category])}</p><div class="filters" aria-label="Filter collection">${['All',...categories].map(c=>`<button data-filter="${esc(c)}" aria-pressed="${c===category}">${esc(c)} <span>${c==='All'?works.length:categoryCount(c)}</span></button>`).join('')}</div><div class="work-grid">${filtered.map(card).join('')}</div><p class="collection-download"><a href="Portfolio%20process%20catalogue.txt" download>Download the complete process catalogue ↓</a></p></section>`;
   openDialog('The collection');setHash(`#collection/${encodeURIComponent(category)}`);animateContent();
@@ -89,6 +111,7 @@ function articleExtras(w){
 }
 function showWork(id){
   const w=works.find(x=>x.id===id);if(!w){showCollection('All');return;}stopMedia();currentWork=w;markViewed(id);$('#back').hidden=false;
+  setRoomView(categories.indexOf(w.category));
   let media='';
   if(w.category==='Podcasts'){media=`${audioArt(false,works.indexOf(w))}<audio controls preload="none" src="${esc(w.src)}" aria-label="${esc(w.title)} podcast"></audio><figcaption>Submitted audio / ${esc(w.duration)} / browser playback copy</figcaption>`;}
   else if(w.category==='Explainer films'){media=`<video controls playsinline preload="none" poster="${esc(w.poster)}" src="${esc(w.src)}" aria-label="${esc(w.title)} explainer"></video><figcaption>Submitted film / ${esc(w.duration)} / optimized playback copy. Any visible dates and claims belong to the coursework.</figcaption>`;}
@@ -116,7 +139,7 @@ content.addEventListener('play',e=>{content.querySelectorAll('audio,video').forE
 content.addEventListener('pause',syncActivity,true);content.addEventListener('ended',syncActivity,true);
 $('#back').onclick=()=>showCollection(activeCategory);
 $('#browse').onclick=()=>showCollection('All');$('#menu').onclick=renderMenu;$('#process').onclick=showProcess;
-$('.identity').onclick=e=>{e.preventDefault();if(dialog.open)closeDialog();};
+$('.identity').onclick=e=>{e.preventDefault();if(dialog.open)closeDialog();setRoomView(-1);};
 function updateHints(){if(!room?.getCategoryPositions)return;const positions=room.getCategoryPositions();for(const b of document.querySelectorAll('#hint-layer button')){const p=positions[b.dataset.category];if(p){b.style.setProperty('--x',p.x+'px');b.style.setProperty('--y',p.y+'px');}}}
 window.addEventListener('resize',()=>requestAnimationFrame(updateHints));
 $('.skip-link').onclick=e=>{e.preventDefault();showCollection('All');};
@@ -129,18 +152,18 @@ $('#sound').onclick=async()=>{
   if(soundOn){studioSound.setEnvironment(evening?'night':'day');sound('enable');room?.pulse?.();}else if(requested)toast('Sound is unavailable in this browser.');
 };
 $('#light').onclick=()=>{evening=!evening;room?.setLighting(evening?'night':'day');studioSound.setEnvironment(evening?'night':'day');$('#light').innerHTML=evening?'Evening <span aria-hidden="true">☾</span>':'Afternoon <span aria-hidden="true">☼</span>';$('#light').setAttribute('aria-label',`${evening?'Evening':'Afternoon'} light. Switch to ${evening?'afternoon':'evening'}`);sound('environment');};
-$('#motion').onclick=()=>{motionOn=!motionOn;room?.setMotion(motionOn);document.body.dataset.motion=motionOn?'on':'off';$('#motion').textContent=`Motion ${motionOn?'on':'off'}`;$('#motion').setAttribute('aria-pressed',motionOn);};
+$('#motion').onclick=()=>{motionOn=!motionOn;room?.setMotion(motionOn);archiveDepth.refresh();document.body.dataset.motion=motionOn?'on':'off';$('#motion').textContent=`Motion ${motionOn?'on':'off'}`;$('#motion').setAttribute('aria-pressed',motionOn);};
 if(reducedMotion){$('#motion').textContent='Motion reduced';$('#motion').setAttribute('aria-pressed','false');$('#motion').disabled=true;}
 document.body.dataset.motion=motionOn?'on':'off';document.body.dataset.sound='off';
 function route(){const hash=decodeURIComponent(location.hash);if(hash.startsWith('#work/'))showWork(hash.slice(6));else if(hash.startsWith('#collection/')){const c=hash.slice(12);showCollection(['All',...categories].includes(c)?c:'All');}else if(hash==='#process')showProcess();}
 async function initialize(){
   try{const responses=await Promise.all(['visual-data.json','media-data.json'].map(f=>fetch(f)));if(responses.some(r=>!r.ok))throw Error('Missing catalogue');const [v,m]=await Promise.all(responses.map(r=>r.json()));works=[...v,...m,...songs];updateCount();route();}
   catch(e){$('#room-status').hidden=false;$('#room-status').classList.add('error');$('#room-status').innerHTML='The collection could not load. <button onclick="location.reload()">Reload the studio</button>';console.error('Catalogue:',e);}
-  try{const {createRoom}=await import('./scene.js?v=life-20261028-2');room=await createRoom({canvas:$('#room'),reducedMotion,onSelect:category=>{sound('select',category);category==='Process'?showProcess():showCollection(category);},onHover:(category,x,y)=>{const t=$('#tooltip');if(category&&!dialog.open){t.textContent=category==='Process'?'Behind the process':`Explore ${category.toLowerCase()} ↗`;t.style.left=`${Math.min(x+15,innerWidth-200)}px`;t.style.top=`${Math.max(20,y-40)}px`;t.classList.add('visible');sound('hover',category);}else t.classList.remove('visible');},onReady:()=>{$('#room-status').hidden=true;}});$('#room-status').hidden=true;if(evening)room.setLighting('night');syncActivity();}
+  try{const {createRoom}=await import('./scene.js?v=spatial-20261028-1');room=await createRoom({canvas:$('#room'),reducedMotion,onCameraChange:()=>{if(!$('#hint-layer').hidden)updateHints();},onSelect:category=>{sound('select',category);category==='Process'?showProcess():showCollection(category);},onHover:(category,x,y)=>{const t=$('#tooltip');if(category&&!dialog.open){t.textContent=category==='Process'?'Behind the process':`Explore ${category.toLowerCase()} ↗`;t.style.left=`${Math.min(x+15,innerWidth-200)}px`;t.style.top=`${Math.max(20,y-40)}px`;t.classList.add('visible');sound('hover',category);}else t.classList.remove('visible');},onReady:()=>{$('#room-status').hidden=true;}});$('#room-status').hidden=true;$('#shelf-focus').disabled=false;if(evening)room.setLighting('night');if(roomIndex>=0)room.focusCategory(categories[roomIndex]);syncActivity();}
   catch(e){$('#room-status').hidden=false;$('#room-status').classList.add('error');$('#room-status').textContent='The 3D room is unavailable on this device. Browse work to explore the complete collection.';console.error('Room:',e);}
   if(window.gsap&&!reducedMotion){gsap.timeline({defaults:{ease:'power2.out'}}).from('.welcome',{opacity:0,y:20,duration:.9}).from('.topbar',{opacity:0,y:-10,duration:.6},'<.2').from('.discovery,.room-options',{opacity:0,duration:.6},'<.2');}
 }
 window.addEventListener('hashchange',route);
-window.addEventListener('pagehide',event=>{if(event.persisted)return;room?.dispose();studioSound.dispose();window.gsap?.globalTimeline.clear();});
-Object.defineProperty(window,'studioDiagnostics',{configurable:true,value:()=>({scene:room?.getDiagnostics?.()||null,sound:studioSound.getDiagnostics(),overlayOpen:dialog.open,motionOn,reducedMotion,works:works.length})});
+window.addEventListener('pagehide',event=>{if(event.persisted)return;archiveDepth.dispose();room?.dispose();studioSound.dispose();window.gsap?.globalTimeline.clear();});
+Object.defineProperty(window,'studioDiagnostics',{configurable:true,value:()=>({scene:room?.getDiagnostics?.()||null,sound:studioSound.getDiagnostics(),depth:archiveDepth.getDiagnostics(),overlayOpen:dialog.open,motionOn,reducedMotion,works:works.length})});
 initialize();

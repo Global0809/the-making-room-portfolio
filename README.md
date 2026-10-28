@@ -17,3 +17,9 @@ This repository contains the complete static website. GitHub Pages serves it dir
 The room includes adaptive 3D dust and evening fireflies, interaction particle wakes, soft light shafts, swaying plants, rotating reels, vinyl and globe, and a gently breathing moon lamp. Room motion pauses while an exhibit is open and can be disabled from the menu. System reduced-motion preferences are respected.
 
 The sound control enables a generated WebAudio soundscape with paper, shutter, vinyl, projector and microphone cues. Audio stays off until enabled, falls silent during podcast or video playback, and suspends when the tab is hidden.
+
+## Spatial exploration
+
+Explore the room opens a shelf navigator with framed close-ups of each creative collection. Arrows preview the next shelf; the collection name opens its exhibits. The whole-room control (or Escape) restores the overview. Desktop pointer movement creates bounded camera parallax; close-up views can also be dragged gently. Native page scrolling and pinch zoom remain available on touch devices.
+
+Three hinged flying books glide through the desktop room; phones use two with shared geometry and no extra shadows. Artwork gains subtle scroll depth inside the exhibition. Motion off and system reduced motion remove ambient flight and parallax while keeping intentional shelf navigation available. Touch devices cap rendering at 24 fps, DPR 1.25, with 1024-pixel shadows; the room and flock pause while exhibits or media are open.
